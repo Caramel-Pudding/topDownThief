@@ -11,7 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    // Generated C# class from your InputSystem_Actions.asset
     private InputSystem_Actions controls;
 
     void Awake()
