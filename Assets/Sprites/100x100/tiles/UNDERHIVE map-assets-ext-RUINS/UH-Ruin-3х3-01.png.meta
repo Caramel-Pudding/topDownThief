@@ -1,0 +1,442 @@
+fileFormatVersion: 2
+guid: d52dbe102bd3a3845bb2ca67d526e8c7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6997736658855462690
+    second: "UH-Ruin-3\u04453-01_0"
+  - first:
+      213: -6118749145105705237
+    second: "UH-Ruin-3\u04453-01_1"
+  - first:
+      213: 1217325476755770430
+    second: "UH-Ruin-3\u04453-01_2"
+  - first:
+      213: -3399455492491239958
+    second: "UH-Ruin-3\u04453-01_3"
+  - first:
+      213: 718430500928888906
+    second: "UH-Ruin-3\u04453-01_4"
+  - first:
+      213: 2222280906917307215
+    second: "UH-Ruin-3\u04453-01_5"
+  - first:
+      213: -763097428548137703
+    second: "UH-Ruin-3\u04453-01_6"
+  - first:
+      213: -5486881063880443465
+    second: "UH-Ruin-3\u04453-01_7"
+  - first:
+      213: 6389719402764864154
+    second: "UH-Ruin-3\u04453-01_8"
+  - first:
+      213: 8725439407878672068
+    second: "UH-Ruin-3\u04453-01_9"
+  - first:
+      213: 170190393144132751
+    second: "UH-Ruin-3\u04453-01_10"
+  - first:
+      213: 1735007728750075275
+    second: "UH-Ruin-3\u04453-01_11"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_0"
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 472
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed8f039959b03ee90800000000000000
+      internalID: -6997736658855462690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_1"
+      rect:
+        serializedVersion: 2
+        x: 184
+        y: 470
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be6df303216d51ba0800000000000000
+      internalID: -6118749145105705237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_2"
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 412
+        width: 32
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3c8f0a421fc4e010800000000000000
+      internalID: 1217325476755770430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_3"
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 417
+        width: 40
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed1f4c9d35b2d0d0800000000000000
+      internalID: -3399455492491239958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_4"
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 429
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a402ca3fbb068f900800000000000000
+      internalID: 718430500928888906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_5"
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 394
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4360ffe5b027de10800000000000000
+      internalID: 2222280906917307215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_6"
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 395
+        width: 19
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91dcf5a8eeee865f0800000000000000
+      internalID: -763097428548137703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_7"
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 381
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b9b69e3ebeaad3b0800000000000000
+      internalID: -5486881063880443465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_8"
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 89
+        width: 322
+        height: 325
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9a883051f7dca850800000000000000
+      internalID: 6389719402764864154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_9"
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 394
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ce8dcf79ecf61970800000000000000
+      internalID: 8725439407878672068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_10"
+      rect:
+        serializedVersion: 2
+        x: 492
+        y: 238
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f844a87c243ac5200800000000000000
+      internalID: 170190393144132751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UH-Ruin-3\u04453-01_11"
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 217
+        width: 18
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8d94ba365cf31810800000000000000
+      internalID: 1735007728750075275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "UH-Ruin-3\u04453-01_0": -6997736658855462690
+      "UH-Ruin-3\u04453-01_1": -6118749145105705237
+      "UH-Ruin-3\u04453-01_10": 170190393144132751
+      "UH-Ruin-3\u04453-01_11": 1735007728750075275
+      "UH-Ruin-3\u04453-01_2": 1217325476755770430
+      "UH-Ruin-3\u04453-01_3": -3399455492491239958
+      "UH-Ruin-3\u04453-01_4": 718430500928888906
+      "UH-Ruin-3\u04453-01_5": 2222280906917307215
+      "UH-Ruin-3\u04453-01_6": -763097428548137703
+      "UH-Ruin-3\u04453-01_7": -5486881063880443465
+      "UH-Ruin-3\u04453-01_8": 6389719402764864154
+      "UH-Ruin-3\u04453-01_9": 8725439407878672068
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
