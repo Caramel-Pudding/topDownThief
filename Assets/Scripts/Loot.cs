@@ -1,47 +1,37 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class Loot : MonoBehaviour
+[RequireComponent(typeof(Collider2D))]
+public class WinTileInteraction : MonoBehaviour
 {
     private InputSystem_Actions controls;
-    public Collider2D winTileTrigger;
     public TMP_Text promptText;
     public TMP_Text winMessage;
+    public Slider progressBar;
     public float holdDuration = 3f;
     public string playerTag = "Player";
 
-    private bool playerInside = false;
-    private bool isHolding = false;
-    private float holdTimer = 0f;
-    private bool winTriggered = false;
+    private bool playerInside;
+    private bool isHolding;
+    private float holdTimer;
+    private bool winTriggered;
 
     void Awake()
     {
-        winMessage.enabled = false;
-        Debug.Log("1Your message here");
         controls = new InputSystem_Actions();
         controls.Player.Interact.performed += _ => isHolding = true;
         controls.Player.Interact.canceled += _ => isHolding = false;
     }
 
-    void OnEnable()
-    {
-        controls.Player.Enable();
-    }
-
-    void OnDisable()
-    {
-        controls.Player.Disable();
-    }
+    void OnEnable() => controls.Player.Enable();
+    void OnDisable() => controls.Player.Disable();
 
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
-        {
             playerInside = true;
-            promptText.enabled = true;
-        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -51,6 +41,7 @@ public class Loot : MonoBehaviour
             playerInside = false;
             holdTimer = 0f;
             promptText.enabled = false;
+            progressBar.gameObject.SetActive(false);
         }
     }
 
@@ -58,25 +49,31 @@ public class Loot : MonoBehaviour
     {
         if (!playerInside || winTriggered) return;
 
-        var bindingDisplay = controls.Player.Interact.bindings[0].ToDisplayString();
-        promptText.text = $"Hold {bindingDisplay} to win...";
+        var keyName = controls.Player.Interact.bindings[0].ToDisplayString();
+        promptText.text = $"Hold {keyName} to win...";
+        promptText.enabled = true;
 
         if (isHolding)
         {
             holdTimer += Time.deltaTime;
+            progressBar.gameObject.SetActive(true);
+            progressBar.value = Mathf.Clamp01(holdTimer / holdDuration);
+
             if (holdTimer >= holdDuration)
                 TriggerWin();
         }
         else
         {
             holdTimer = 0f;
+            progressBar.value = 0f;
         }
     }
 
-    private void TriggerWin()
+    void TriggerWin()
     {
         winTriggered = true;
         promptText.enabled = false;
+        progressBar.gameObject.SetActive(false);
         winMessage.text = "Victory!";
         winMessage.enabled = true;
         Time.timeScale = 0f;
