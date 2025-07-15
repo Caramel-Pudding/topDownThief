@@ -9,6 +9,7 @@ public class InventoryManager : MonoBehaviour
 
     void Awake()
     {
+        // Ensure this is a singleton instance
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
