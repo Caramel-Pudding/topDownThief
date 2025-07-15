@@ -88,7 +88,7 @@ public class DoorTrigger : MonoBehaviour
     private void OpenDoor()
     {
         doorOpened = true;
-        promptText.text = "Door opened";
+        promptText.enabled = false;
 
         // swap to the open sprite
         if (openDoorSprite != null && doorSprite != null)
