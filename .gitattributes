@@ -1,1 +1,4 @@
 *.png filter=lfs diff=lfs merge=lfs -text
+Assets/Resources/SFX/**/*.ogg filter=lfs diff=lfs merge=lfs -text
+Assets/Resources/SFX/**/*.wav filter=lfs diff=lfs merge=lfs -text
+Assets/Resources/SFX/**/*.mp3 filter=lfs diff=lfs merge=lfs -text
