@@ -41,11 +41,11 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Characters
-    uniqueID: 2350085307
-    locked: 0
   - name: Obstacles
     uniqueID: 454380717
+    locked: 0
+  - name: Characters
+    uniqueID: 2350085307
     locked: 0
   - name: UI
     uniqueID: 2558155083
