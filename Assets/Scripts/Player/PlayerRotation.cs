@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class AimLightOnly : MonoBehaviour
+public class PlayerRotation : MonoBehaviour
 {
     [SerializeField] private float offsetAngle = 0f;
     [SerializeField] private Transform lightHolder;
