@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5765180461480333062}
   - component: {fileID: 1639489767558590887}
   - component: {fileID: 301609785179914978}
+  - component: {fileID: -4250174512536940097}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -30,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 5899710082939874399}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.75, y: 1.528, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,14 +79,14 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 454380717
-  m_SortingLayer: 2
+  m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 2563245890920058084, guid: 57ebd0f4990906941a9d2e80ac21110f, type: 3}
+  m_Sprite: {fileID: -5062486230716756072, guid: ea2e3ab0aa8652942b2698b707f7cbb8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2, y: 1.71}
+  m_Size: {x: 2, y: 2.4375}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -156,8 +157,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 1.71}
-    newSize: {x: 2, y: 1.71}
+    oldSize: {x: 2, y: 2.4375}
+    newSize: {x: 2, y: 2.4375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -202,8 +203,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 1.71}
-    newSize: {x: 2, y: 1.71}
+    oldSize: {x: 2, y: 2.4375}
+    newSize: {x: 2, y: 2.4375}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -225,5 +226,57 @@ MonoBehaviour:
   keyId: key
   playerTag: Player
   promptText: {fileID: 0}
-  door: {fileID: 0}
-  openDoorSprite: {fileID: 0}
+  openDoorSprite: {fileID: 7477827516038983822, guid: ea2e3ab0aa8652942b2698b707f7cbb8, type: 3}
+--- !u!114 &-4250174512536940097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0
+  m_ApplyToSortingLayers: 00000000ad4c151bbb74138cb54051614b597a98
+  m_ShapePath:
+  - {x: -1, y: -1.21875, z: 0}
+  - {x: -1, y: 1.21875, z: 0}
+  - {x: 1, y: 1.21875, z: 0}
+  - {x: 1, y: -1.21875, z: 0}
+  m_ShapePathHash: 0
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 1843281603761645731}
+  m_ShadowShape2DProvider:
+    rid: 6325891243727651074
+  m_ShadowCastingSource: 2
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0, y: 0, z: 0}
+      m_Extent: {x: 1, y: 1.21875, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0.1
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 2
+  m_PreviousShadowShape2DSource: {fileID: 1843281603761645731}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6325891243727651074
+      type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
+      data: 
