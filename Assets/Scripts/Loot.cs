@@ -50,7 +50,7 @@ public class Loot : MonoBehaviour
         if (!playerInside || interactionComplete) return;
 
         var keyName = controls.Player.Interact.bindings[0].ToDisplayString();
-        promptText.text = $"Hold {keyName}...";
+        promptText.text = $"{keyName}";
         promptText.enabled = true;
 
         if (isHolding)
