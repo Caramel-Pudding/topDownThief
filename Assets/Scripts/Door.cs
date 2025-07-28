@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.Rendering.Universal;
 
 [RequireComponent(typeof(Collider2D))] // this is your trigger collider
 public class DoorTrigger : MonoBehaviour
@@ -14,6 +15,7 @@ public class DoorTrigger : MonoBehaviour
     private bool playerInside;
     private bool doorOpened;
     private Collider2D solidCollider;   // the “real” door collider (isTrigger = false)
+    private ShadowCaster2D shadowCaster;
     private SpriteRenderer doorSprite;      // the door’s SpriteRenderer
 
     void Awake()
@@ -31,6 +33,8 @@ public class DoorTrigger : MonoBehaviour
                 break;
             }
         }
+
+       shadowCaster = GetComponent<ShadowCaster2D>();
 
         // grab the sprite renderer (on this object or in children)
         doorSprite = GetComponent<SpriteRenderer>()
@@ -97,6 +101,9 @@ public class DoorTrigger : MonoBehaviour
         // disable the solid collider so the player can pass
         if (solidCollider != null)
             solidCollider.enabled = false;
+
+        if (shadowCaster == null)
+            shadowCaster.enabled = false; // disable shadow casting
 
         // optionally disable the trigger too, if you don't need it anymore
         GetComponent<Collider2D>().enabled = false;
