@@ -84,7 +84,8 @@ public class PlayerWithFOV : MonoBehaviour
         for (int i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, 0);
 
-        Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
+        // 8f is a char height
+        Vector2 center = new Vector2(texSize / 2f, texSize / 2f + 8f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
         float startAngle = mouseAngle - viewAngle / 2f;
@@ -96,19 +97,33 @@ public class PlayerWithFOV : MonoBehaviour
             float rad = Mathf.Deg2Rad * angle;
             Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             Vector2 worldCenter = (Vector2)transform.position;
-            RaycastHit2D hit = Physics2D.Raycast(worldCenter, dir, viewRadius, obstacleMask);
-            float hitDist = hit ? hit.distance : viewRadius;
 
-            for (float r = 0; r < hitDist; r += 0.1f)
+            bool wasInObstacle = false;
+
+            for (float r = 0f; r < viewRadius; r += 0.05f)
             {
+                Vector2 samplePos = worldCenter + dir * r;
+                bool isObstacle = Physics2D.OverlapPoint(samplePos, obstacleMask);
+
+                // Пока не был в obstacle — просто идём вперёд
+                // Если вошли в obstacle — продолжаем идти (заливка продолжается)
+                // Как только вышли из obstacle (wasInObstacle==true && isObstacle==false) — break
+                if (wasInObstacle && !isObstacle)
+                    break;
+
                 Vector2 pos = center + dir * r * pixelPerUnit;
                 int px = Mathf.RoundToInt(pos.x);
                 int py = Mathf.RoundToInt(pos.y);
                 if (px >= 0 && px < texSize && py >= 0 && py < texSize)
                     pixels[py * texSize + px] = new Color32(255, 255, 255, 255);
+
+                if (isObstacle)
+                    wasInObstacle = true;
             }
         }
 
         fovTexture.SetPixels32(pixels);
     }
+
+
 }
