@@ -107,5 +107,6 @@ public class DoorTrigger : MonoBehaviour
 
         // optionally disable the trigger too, if you don't need it anymore
         GetComponent<Collider2D>().enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Default");
     }
 }

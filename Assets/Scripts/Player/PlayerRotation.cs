@@ -13,7 +13,6 @@ public class PlayerWithFOV : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteHolder;
-    [SerializeField] private float offsetAngle = 0f;
 
     private SpriteMask spriteMask;
     private Texture2D fovTexture;
@@ -75,7 +74,7 @@ public class PlayerWithFOV : MonoBehaviour
         }
 
         // Запоминаем угол направления взгляда (в градусах)
-        mouseAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + offsetAngle;
+        mouseAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
     }
 
     void GenerateFOVTexture()
@@ -85,7 +84,7 @@ public class PlayerWithFOV : MonoBehaviour
             pixels[i] = new Color32(0, 0, 0, 0);
 
         // 8f is a char height
-        Vector2 center = new Vector2(texSize / 2f, texSize / 2f + 8f);
+        Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
         float startAngle = mouseAngle - viewAngle / 2f;

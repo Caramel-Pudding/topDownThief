@@ -2,7 +2,7 @@
 - Project name: TopDownThief
 - Unity version: Unity 6000.1.11f1
 - Active game object:
-  - Name: Fog
+  - Name: Global Light 2D
   - Tag: Untagged
-  - Layer: Fog
+  - Layer: Default
 <!-- UNITY CODE ASSIST INSTRUCTIONS END -->
