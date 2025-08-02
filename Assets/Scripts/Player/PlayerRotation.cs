@@ -13,6 +13,9 @@ public class PlayerWithFOV : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private SpriteRenderer spriteHolder;
+    [SerializeField] private FogOfWarTexture fog;
+    [Header("Fog reveal")]
+    public float revealBrushRadius = 1f; // world-юниты
 
     private SpriteMask spriteMask;
     private Texture2D fovTexture;
@@ -46,13 +49,18 @@ public class PlayerWithFOV : MonoBehaviour
 
     void Update()
     {
+
         HandleRotationAndAnimation();
     }
 
     void LateUpdate()
     {
+        fog.ClearVisibleMask();
         GenerateFOVTexture();
         fovTexture.Apply();
+
+        // Финализируем слой тумана войны (устанавливаем серый там, где нужно)
+        fog.FinalizeFrame();
     }
 
     void HandleRotationAndAnimation()
@@ -83,7 +91,6 @@ public class PlayerWithFOV : MonoBehaviour
         for (int i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, 0);
 
-        // 8f is a char height
         Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
@@ -104,9 +111,9 @@ public class PlayerWithFOV : MonoBehaviour
                 Vector2 samplePos = worldCenter + dir * r;
                 bool isObstacle = Physics2D.OverlapPoint(samplePos, obstacleMask);
 
-                // Пока не был в obstacle — просто идём вперёд
-                // Если вошли в obstacle — продолжаем идти (заливка продолжается)
-                // Как только вышли из obstacle (wasInObstacle==true && isObstacle==false) — break
+                // Копим координаты, которые сейчас видно
+                fog.MarkVisible(samplePos, revealBrushRadius);
+
                 if (wasInObstacle && !isObstacle)
                     break;
 
@@ -123,6 +130,4 @@ public class PlayerWithFOV : MonoBehaviour
 
         fovTexture.SetPixels32(pixels);
     }
-
-
 }
