@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(SpriteMask))]
-public class PlayerWithFOV : MonoBehaviour
+public class RaycastFOV : MonoBehaviour
 {
     [Header("FOV Settings")]
     public float viewAngle = 90f;
@@ -11,17 +10,9 @@ public class PlayerWithFOV : MonoBehaviour
     public int rayCount = 128;
     public LayerMask obstacleMask;
 
-    [Header("References")]
-    [SerializeField] private SpriteRenderer spriteHolder;
-    [SerializeField] private float offsetAngle = 0f;
-
     private SpriteMask spriteMask;
     private Texture2D fovTexture;
     private Sprite fovSprite;
-    private Camera mainCam;
-    private float camZDistance;
-    private Animator animator;
-    private float mouseAngle;
 
     void Awake()
     {
@@ -37,45 +28,14 @@ public class PlayerWithFOV : MonoBehaviour
         );
 
         spriteMask.sprite = fovSprite;
-
-        mainCam = Camera.main;
-        camZDistance = Mathf.Abs(mainCam.transform.position.z);
-
-        if (spriteHolder != null)
-            animator = spriteHolder.GetComponent<Animator>();
-    }
-
-    void Update()
-    {
-        HandleRotationAndAnimation();
     }
 
     void LateUpdate()
     {
         GenerateFOVTexture();
         fovTexture.Apply();
-    }
-
-    void HandleRotationAndAnimation()
-    {
-        Vector2 mouseScreen = Mouse.current.position.ReadValue();
-        Vector3 mouseWorld = mainCam.ScreenToWorldPoint(
-            new Vector3(mouseScreen.x, mouseScreen.y, camZDistance)
-        );
-
-        Vector2 direction = (mouseWorld - transform.position).normalized;
-
-        if (spriteHolder != null)
-            spriteHolder.flipX = direction.x < 0f;
-
-        if (animator != null)
-        {
-            animator.SetFloat("dirX", direction.x);
-            animator.SetFloat("dirY", direction.y);
-        }
-
-        // Запоминаем угол направления взгляда (в градусах)
-        mouseAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg + offsetAngle;
+        // Если маска вдруг не обновляется:
+        // spriteMask.enabled = false; spriteMask.enabled = true;
     }
 
     void GenerateFOVTexture()
@@ -87,12 +47,12 @@ public class PlayerWithFOV : MonoBehaviour
         Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
-        float startAngle = mouseAngle - viewAngle / 2f;
+        float startAngle = -viewAngle / 2f;
         float angleStep = viewAngle / rayCount;
 
         for (int i = 0; i <= rayCount; i++)
         {
-            float angle = startAngle + angleStep * i;
+            float angle = startAngle + angleStep * i + transform.eulerAngles.z;
             float rad = Mathf.Deg2Rad * angle;
             Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             Vector2 worldCenter = (Vector2)transform.position;
