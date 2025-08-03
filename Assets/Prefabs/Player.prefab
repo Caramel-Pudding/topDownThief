@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2505576311090651932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4216276980204040124}
+  - component: {fileID: 1242846966369714755}
+  m_Layer: 0
+  m_Name: InventoryManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4216276980204040124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505576311090651932}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.23464, y: 4.25492, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4435289015561670153}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1242846966369714755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2505576311090651932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e8752e94ee6d314795c2932025c9563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2758427201049525475
 GameObject:
   m_ObjectHideFlags: 0
@@ -97,6 +141,7 @@ GameObject:
   - component: {fileID: 988993174189585094}
   - component: {fileID: 8696875285175229378}
   - component: {fileID: 7827923457979386352}
+  - component: {fileID: 8033622528332146735}
   - component: {fileID: 6802522536698344043}
   m_Layer: 0
   m_Name: Player
@@ -119,6 +164,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8031436779836153603}
+  - {fileID: 4216276980204040124}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &7861239139753590388
@@ -212,13 +258,28 @@ MonoBehaviour:
   viewAngle: 90
   viewRadius: 6
   texSize: 512
-  rayCount: 512
+  rayCount: 64
   obstacleMask:
     serializedVersion: 2
     m_Bits: 8
   spriteHolder: {fileID: 8777266926469798722}
   fog: {fileID: 0}
-  revealBrushRadius: 1
+--- !u!114 &8033622528332146735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3235738520173112090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f72522ffad5ccec4ca84147d7a5cee8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!331 &6802522536698344043
 SpriteMask:
   m_ObjectHideFlags: 0
