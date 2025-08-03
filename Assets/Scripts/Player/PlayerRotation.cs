@@ -66,7 +66,7 @@ public class PlayerWithFOV : MonoBehaviour
         for (int i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, 0);
 
-        Vector2 center = new Vector2(texSize / 2f, (texSize / 2f) + 2f);
+        Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
         float startAngle = mouseAngle - viewAngle / 2f;
