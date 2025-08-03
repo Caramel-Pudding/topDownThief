@@ -210,13 +210,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewAngle: 90
-  viewRadius: 8
-  texSize: 128
-  rayCount: 128
+  viewRadius: 6
+  texSize: 512
+  rayCount: 512
   obstacleMask:
     serializedVersion: 2
     m_Bits: 8
   spriteHolder: {fileID: 8777266926469798722}
+  fog: {fileID: 0}
+  revealBrushRadius: 1
 --- !u!331 &6802522536698344043
 SpriteMask:
   m_ObjectHideFlags: 0

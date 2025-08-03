@@ -1,25 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(SpriteMask))]
 public class PlayerWithFOV : MonoBehaviour
 {
-    [Header("FOV Settings")]
-    public float viewAngle = 90f;
-    public float viewRadius = 8f;
-    public int texSize = 128;
-    public int rayCount = 128;
-    public LayerMask obstacleMask;
-
-    [Header("References")]
+    [SerializeField] private float viewAngle = 90f;
+    [SerializeField] private float viewRadius = 8f;
+    [SerializeField] private int texSize = 128;
+    [SerializeField] private int rayCount = 128;
+    [SerializeField] private LayerMask obstacleMask;
     [SerializeField] private SpriteRenderer spriteHolder;
     [SerializeField] private FogOfWarTexture fog;
-    [Header("Fog reveal")]
-    public float revealBrushRadius = 1f; // world-юниты
 
-    private SpriteMask spriteMask;
-    private Texture2D fovTexture;
-    private Sprite fovSprite;
     private Camera mainCam;
     private float camZDistance;
     private Animator animator;
@@ -27,19 +18,6 @@ public class PlayerWithFOV : MonoBehaviour
 
     void Awake()
     {
-        spriteMask = GetComponent<SpriteMask>();
-        fovTexture = new Texture2D(texSize, texSize, TextureFormat.Alpha8, false);
-        fovTexture.filterMode = FilterMode.Point;
-
-        fovSprite = Sprite.Create(
-            fovTexture,
-            new Rect(0, 0, texSize, texSize),
-            new Vector2(0.5f, 0.5f),
-            texSize / (viewRadius * 2f)
-        );
-
-        spriteMask.sprite = fovSprite;
-
         mainCam = Camera.main;
         camZDistance = Mathf.Abs(mainCam.transform.position.z);
 
@@ -49,7 +27,6 @@ public class PlayerWithFOV : MonoBehaviour
 
     void Update()
     {
-
         HandleRotationAndAnimation();
     }
 
@@ -57,8 +34,6 @@ public class PlayerWithFOV : MonoBehaviour
     {
         fog.ClearVisibleMask();
         GenerateFOVTexture();
-        fovTexture.Apply();
-
         // Финализируем слой тумана войны (устанавливаем серый там, где нужно)
         fog.FinalizeFrame();
     }
@@ -91,7 +66,7 @@ public class PlayerWithFOV : MonoBehaviour
         for (int i = 0; i < pixels.Length; i++)
             pixels[i] = new Color32(0, 0, 0, 0);
 
-        Vector2 center = new Vector2(texSize / 2f, texSize / 2f);
+        Vector2 center = new Vector2(texSize / 2f, (texSize / 2f) + 2f);
         float pixelPerUnit = texSize / (viewRadius * 2f);
 
         float startAngle = mouseAngle - viewAngle / 2f;
@@ -111,9 +86,6 @@ public class PlayerWithFOV : MonoBehaviour
                 Vector2 samplePos = worldCenter + dir * r;
                 bool isObstacle = Physics2D.OverlapPoint(samplePos, obstacleMask);
 
-                // Копим координаты, которые сейчас видно
-                fog.MarkVisible(samplePos, revealBrushRadius);
-
                 if (wasInObstacle && !isObstacle)
                     break;
 
@@ -127,7 +99,6 @@ public class PlayerWithFOV : MonoBehaviour
                     wasInObstacle = true;
             }
         }
-
-        fovTexture.SetPixels32(pixels);
+        fog.MarkVisible(pixels, (Vector2)transform.position, viewRadius, texSize);
     }
 }

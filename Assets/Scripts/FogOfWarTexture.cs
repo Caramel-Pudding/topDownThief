@@ -3,11 +3,9 @@
 [RequireComponent(typeof(SpriteRenderer))]
 public class FogOfWarTexture : MonoBehaviour
 {
-    [Header("Map")]
     public Vector2 worldSize = new(100, 100);
     public int texSize = 512;
 
-    [Header("Fog Colors")]
     public float greyAlpha = 0.4f;
 
     Texture2D fogTex;
@@ -38,9 +36,6 @@ public class FogOfWarTexture : MonoBehaviour
         fogRenderer.transform.localPosition = Vector3.zero;
         fogRenderer.transform.localScale = Vector3.one;
         fogRenderer.color = Color.white;
-        // Для простоты, сразу Unlit-материал
-        var unlit = Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default");
-        fogRenderer.material = new Material(unlit);
     }
 
     // Сброс временной маски видимости
@@ -50,25 +45,39 @@ public class FogOfWarTexture : MonoBehaviour
             revealPixels[i].a = 0;
     }
 
-    // Пометить область как «видимую сейчас» и навсегда «разведанную»
-    public void MarkVisible(Vector2 worldPos, float radius)
+    public void MarkVisible(Color32[] visiblePixels, Vector2 fovCenterWorld, float fovRadius, int fovTexSize)
     {
-        Vector2 center = WorldToTex(worldPos);
-        int rad = Mathf.CeilToInt(radius * pxPerUnit);
+        float fovPxPerUnit = fovTexSize / (fovRadius * 2f);
 
-        for (int dy = -rad; dy <= rad; dy++)
-            for (int dx = -rad; dx <= rad; dx++)
+        // Центр FOV текстуры в локальных координатах
+        Vector2 fovTexCenter = new Vector2(fovTexSize / 2f, fovTexSize / 2f);
+
+        for (int py = 0; py < fovTexSize; py++)
+        {
+            for (int px = 0; px < fovTexSize; px++)
             {
-                int px = Mathf.RoundToInt(center.x) + dx;
-                int py = Mathf.RoundToInt(center.y) + dy;
-                if (px < 0 || px >= texSize || py < 0 || py >= texSize) continue;
-                if (dx * dx + dy * dy > rad * rad) continue;
+                int idx = py * fovTexSize + px;
+                if (visiblePixels[idx].a > 0)
+                {
+                    // Получаем позицию в world-координатах относительно центра FOV
+                    Vector2 offset = (new Vector2(px, py) - fovTexCenter) / fovPxPerUnit;
+                    Vector2 worldPos = fovCenterWorld + offset;
 
-                int idx = py * texSize + px;
-                revealPixels[idx].a = 255;         // видно сейчас
-                everRevealed[idx] = true;          // разведано навсегда
+                    // Переводим worldPos в координаты глобальной карты
+                    Vector2 fogTexPos = WorldToTex(worldPos);
+                    int fogPx = Mathf.RoundToInt(fogTexPos.x);
+                    int fogPy = Mathf.RoundToInt(fogTexPos.y);
+                    if (fogPx < 0 || fogPx >= texSize || fogPy < 0 || fogPy >= texSize)
+                        continue;
+                    int fogIdx = fogPy * texSize + fogPx;
+
+                    revealPixels[fogIdx].a = 255;
+                    everRevealed[fogIdx] = true;
+                }
             }
+        }
     }
+
 
     // В конце кадра: обновить текстуру по состоянию
     public void FinalizeFrame()
