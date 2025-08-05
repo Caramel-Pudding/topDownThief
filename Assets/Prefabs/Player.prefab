@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4216276980204040124}
   - component: {fileID: 1242846966369714755}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InventoryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5578994105271352604}
   - component: {fileID: 7015346396572077900}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,7 +143,7 @@ GameObject:
   - component: {fileID: 7827923457979386352}
   - component: {fileID: 8033622528332146735}
   - component: {fileID: 6802522536698344043}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 8777266926469798722}
   - component: {fileID: 4424597385676611570}
   - component: {fileID: 5777217955421014292}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpriteHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
