@@ -41,6 +41,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Effects
+    uniqueID: 131642231
+    locked: 0
   - name: Obstacles
     uniqueID: 454380717
     locked: 0
