@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e0afa0a76acf5c40ab865398f53366b, type: 3}
   m_Name: New Chase State Asset
   m_EditorClassIdentifier: 
-  attackState: {fileID: 0}
+  attackState: {fileID: 11400000, guid: 2eaf5f7799ac2dd44950c2ae7d48d953, type: 2}
   backToPatrolState: {fileID: 11400000, guid: 872684abcfab16e47b34a2ab2c7ca1e8, type: 2}

@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using TopDownThief.Interfaces;
+﻿using TopDownThief.Interfaces;
+using UnityEngine;
 
 [CreateAssetMenu(menuName = "AI/Guard/States/Attack")]
 public class AttackStateAsset : StateAsset

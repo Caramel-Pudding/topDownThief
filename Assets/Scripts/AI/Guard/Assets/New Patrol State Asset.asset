@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f492da2580cc7045ad023bb98f5049c, type: 3}
   m_Name: New Patrol State Asset
   m_EditorClassIdentifier: 
-  chaseState: {fileID: 0}
+  chaseState: {fileID: 11400000, guid: 0c5e91e87e17f8642aa07cff7edd800b, type: 2}
   mode: 0
   arriveTolerance: 0.08
   pauseAtPoint: 0.3
