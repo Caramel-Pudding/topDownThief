@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5be9fe09c92c79c4a9a7064ff1600b36, type: 3}
-  m_Name: DefaultGuard
+  m_Script: {fileID: 11500000, guid: 9f492da2580cc7045ad023bb98f5049c, type: 3}
+  m_Name: New Patrol State Asset
   m_EditorClassIdentifier: 
-  detectionTime: 1.5
-  loseTime: 1
-  chaseSpeed: 2.2
+  chaseState: {fileID: 0}
+  mode: 0
+  arriveTolerance: 0.08
+  pauseAtPoint: 0.3
+  startFromClosest: 1

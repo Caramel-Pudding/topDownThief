@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class SawTrapMover : MonoBehaviour
+public class TwoPointsMovement : MonoBehaviour
 {
     [SerializeField] private Transform pointA;
     [SerializeField] private Transform pointB;
