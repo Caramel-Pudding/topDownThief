@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerWithFOV : MonoBehaviour
+public class PlayerWithFOV : MonoBehaviour, IFacingProvider
 {
     [SerializeField] private float viewAngle = 90f;
     [SerializeField] private float viewRadius = 8f;
@@ -16,13 +16,13 @@ public class PlayerWithFOV : MonoBehaviour
     private Animator animator;
     private float mouseAngle;
 
+    public Vector2 Facing { get; private set; } = Vector2.right;
+
     void Awake()
     {
         mainCam = Camera.main;
         camZDistance = Mathf.Abs(mainCam.transform.position.z);
-
-        if (spriteHolder != null)
-            animator = spriteHolder.GetComponent<Animator>();
+        if (spriteHolder != null) animator = spriteHolder.GetComponent<Animator>();
     }
 
     void Update()
@@ -34,30 +34,26 @@ public class PlayerWithFOV : MonoBehaviour
     {
         fog.ClearVisibleMask();
         GenerateFOVTexture();
-        // Финализируем слой тумана войны (устанавливаем серый там, где нужно)
         fog.FinalizeFrame();
     }
 
     void HandleRotationAndAnimation()
     {
         Vector2 mouseScreen = Mouse.current.position.ReadValue();
-        Vector3 mouseWorld = mainCam.ScreenToWorldPoint(
-            new Vector3(mouseScreen.x, mouseScreen.y, camZDistance)
-        );
+        Vector3 mouseWorld = mainCam.ScreenToWorldPoint(new Vector3(mouseScreen.x, mouseScreen.y, camZDistance));
+        Vector2 dir = ((Vector2)(mouseWorld - transform.position)).normalized;
+        if (dir.sqrMagnitude < 0.0001f) dir = Facing; // keep last valid
 
-        Vector2 direction = (mouseWorld - transform.position).normalized;
+        Facing = dir;
 
-        if (spriteHolder != null)
-            spriteHolder.flipX = direction.x < 0f;
-
+        if (spriteHolder != null) spriteHolder.flipX = dir.x < 0f;
         if (animator != null)
         {
-            animator.SetFloat("dirX", direction.x);
-            animator.SetFloat("dirY", direction.y);
+            animator.SetFloat("dirX", dir.x);
+            animator.SetFloat("dirY", dir.y);
         }
 
-        // Запоминаем угол направления взгляда (в градусах)
-        mouseAngle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        mouseAngle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
 
     void GenerateFOVTexture()
