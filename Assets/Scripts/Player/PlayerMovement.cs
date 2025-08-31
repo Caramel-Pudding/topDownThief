@@ -5,47 +5,123 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
-    [Tooltip("Units per second")]
     public float speed = 5f;
 
+    [Header("Dash")]
+    public float dashDistance = 3f;
+    public float dashDuration = 0.1f;
+    public float postDashMultiplier = 0.1f;
+    public float postDashDuration = 2f;
+
+    [Header("Facing Source")]
+    [SerializeField] private MonoBehaviour facingSource; // must implement IFacingProvider
+
+    [Header("Dash Cooldown")]
+    public float dashCooldown = 1f;
+
+    private float dashCooldownTimer;
+
+
+    private IFacingProvider facing;
     private Rigidbody2D rb;
     private Vector2 moveInput;
-
+    private Vector2 lastFacing = Vector2.right;
     private InputSystem_Actions controls;
+
+    private float speedMul = 1f;
+    private float slowTimer;
+
+    private bool isDashing;
+    private float dashTimer;
+    private Vector2 dashVelocity;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         controls = new InputSystem_Actions();
+
+        facing = facingSource as IFacingProvider ?? GetComponentInParent<IFacingProvider>();
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.interpolation = RigidbodyInterpolation2D.Interpolate;
     }
 
     void OnEnable()
     {
-        // Enable the Player action map
         controls.Player.Enable();
-
-        // Subscribe to Move started/changed/canceled
         controls.Player.Move.performed += OnMove;
         controls.Player.Move.canceled += OnMove;
+        controls.Player.Jump.performed += OnJump;
     }
 
     void OnDisable()
     {
-        // Unsubscribe and disable the map
         controls.Player.Move.performed -= OnMove;
         controls.Player.Move.canceled -= OnMove;
+        controls.Player.Jump.performed -= OnJump;
         controls.Player.Disable();
     }
 
     private void OnMove(InputAction.CallbackContext ctx)
     {
-        // Read the 2D vector; canceled will send (0,0)
         moveInput = ctx.ReadValue<Vector2>();
+        if (moveInput.sqrMagnitude > 0.0001f)
+            lastFacing = moveInput.normalized;
     }
+
+    private void OnJump(InputAction.CallbackContext ctx)
+    {
+        if (isDashing) return;
+        if (dashCooldownTimer > 0f) return;   // кулдаун ещё не кончился
+
+        Vector2 dir;
+        if (moveInput.sqrMagnitude > 0.0001f)
+            dir = moveInput.normalized;
+        else if (facing != null && facing.Facing.sqrMagnitude > 0.0001f)
+            dir = facing.Facing.normalized;
+        else
+            dir = lastFacing;
+
+        if (dir.sqrMagnitude < 0.0001f) dir = Vector2.right;
+
+        dashVelocity = dir * (dashDistance / dashDuration);
+        dashTimer = dashDuration;
+        isDashing = true;
+
+        dashCooldownTimer = dashCooldown;  // старт кулдауна
+    }
+
+
+    void Update()
+    {
+        if (slowTimer > 0f)
+        {
+            slowTimer -= Time.deltaTime;
+            if (slowTimer <= 0f) speedMul = 1f;
+        }
+
+        if (dashCooldownTimer > 0f)
+            dashCooldownTimer -= Time.deltaTime;
+    }
+
 
     void FixedUpdate()
     {
-        // Move via Rigidbody2D for proper collision
-        rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
+        if (isDashing)
+        {
+            rb.linearVelocity = dashVelocity;
+            dashTimer -= Time.fixedDeltaTime;
+            if (dashTimer <= 0f)
+            {
+                isDashing = false;
+                rb.linearVelocity = Vector2.zero;
+                speedMul = postDashMultiplier;
+                slowTimer = postDashDuration;
+            }
+        }
+        else
+        {
+            float v = speed * speedMul;
+            rb.MovePosition(rb.position + moveInput * v * Time.fixedDeltaTime);
+        }
     }
 }
