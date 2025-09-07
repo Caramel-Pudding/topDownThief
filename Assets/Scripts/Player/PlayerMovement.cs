@@ -10,17 +10,15 @@ public class PlayerMovement : MonoBehaviour
     [Header("Dash")]
     public float dashDistance = 3f;
     public float dashDuration = 0.1f;
-    public float postDashMultiplier = 0.1f;
-    public float postDashDuration = 2f;
+
+    [Tooltip("Speed multiplier applied after a dash while recovery is active.")]
+    public float recoverySpeedMultiplier = 0.1f;
+
+    [Tooltip("Recovery duration after dash ends. During recovery, dash is locked and movement is slowed.")]
+    public float recoveryDuration = 2f;
 
     [Header("Facing Source")]
     [SerializeField] private MonoBehaviour facingSource; // must implement IFacingProvider
-
-    [Header("Dash Cooldown")]
-    public float dashCooldown = 1f;
-
-    private float dashCooldownTimer;
-
 
     private IFacingProvider facing;
     private Rigidbody2D rb;
@@ -71,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump(InputAction.CallbackContext ctx)
     {
         if (isDashing) return;
-        if (dashCooldownTimer > 0f) return;   // кулдаун ещё не кончился
+        if (slowTimer > 0f) return; // lock dash during recovery
 
         Vector2 dir;
         if (moveInput.sqrMagnitude > 0.0001f)
@@ -86,23 +84,17 @@ public class PlayerMovement : MonoBehaviour
         dashVelocity = dir * (dashDistance / dashDuration);
         dashTimer = dashDuration;
         isDashing = true;
-
-        dashCooldownTimer = dashCooldown;  // старт кулдауна
     }
-
 
     void Update()
     {
         if (slowTimer > 0f)
         {
             slowTimer -= Time.deltaTime;
-            if (slowTimer <= 0f) speedMul = 1f;
+            if (slowTimer <= 0f)
+                speedMul = 1f;
         }
-
-        if (dashCooldownTimer > 0f)
-            dashCooldownTimer -= Time.deltaTime;
     }
-
 
     void FixedUpdate()
     {
@@ -114,8 +106,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 isDashing = false;
                 rb.linearVelocity = Vector2.zero;
-                speedMul = postDashMultiplier;
-                slowTimer = postDashDuration;
+                speedMul = recoverySpeedMultiplier;
+                slowTimer = recoveryDuration; // start recovery lock
             }
         }
         else
