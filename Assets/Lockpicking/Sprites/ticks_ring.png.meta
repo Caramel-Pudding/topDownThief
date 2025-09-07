@@ -1,0 +1,1482 @@
+fileFormatVersion: 2
+guid: 6acd7e4435e47d14ca6f95996c8a0d98
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 28088412815554280
+    second: ticks_ring_0
+  - first:
+      213: -9035619149789876563
+    second: ticks_ring_1
+  - first:
+      213: 4853386695608822887
+    second: ticks_ring_2
+  - first:
+      213: -7128579900415933948
+    second: ticks_ring_3
+  - first:
+      213: 2749820854106021513
+    second: ticks_ring_4
+  - first:
+      213: 7910980406808622925
+    second: ticks_ring_5
+  - first:
+      213: -453088504561253426
+    second: ticks_ring_6
+  - first:
+      213: 4474558345285718451
+    second: ticks_ring_7
+  - first:
+      213: 9204543475175385245
+    second: ticks_ring_8
+  - first:
+      213: -6929118220852914960
+    second: ticks_ring_9
+  - first:
+      213: 7215530041376434883
+    second: ticks_ring_10
+  - first:
+      213: -6422824058971827725
+    second: ticks_ring_11
+  - first:
+      213: 860361844539600771
+    second: ticks_ring_12
+  - first:
+      213: -607505537766498468
+    second: ticks_ring_13
+  - first:
+      213: -5901050571895684410
+    second: ticks_ring_14
+  - first:
+      213: -4716855855317558707
+    second: ticks_ring_15
+  - first:
+      213: -3779694023526853522
+    second: ticks_ring_16
+  - first:
+      213: 1874394701597093034
+    second: ticks_ring_17
+  - first:
+      213: -3445318800570994563
+    second: ticks_ring_18
+  - first:
+      213: 184361064654523334
+    second: ticks_ring_19
+  - first:
+      213: 937238561725299533
+    second: ticks_ring_20
+  - first:
+      213: -8779684449872375158
+    second: ticks_ring_21
+  - first:
+      213: -6239046832892567310
+    second: ticks_ring_22
+  - first:
+      213: 2179845854660903201
+    second: ticks_ring_23
+  - first:
+      213: 8429517306628341032
+    second: ticks_ring_24
+  - first:
+      213: -3053763564725004640
+    second: ticks_ring_25
+  - first:
+      213: -9179423141650282457
+    second: ticks_ring_26
+  - first:
+      213: -2295959819486337254
+    second: ticks_ring_27
+  - first:
+      213: 764918370212970594
+    second: ticks_ring_28
+  - first:
+      213: -8492084623115906036
+    second: ticks_ring_29
+  - first:
+      213: -6967676532754143860
+    second: ticks_ring_30
+  - first:
+      213: 8476211387435310767
+    second: ticks_ring_31
+  - first:
+      213: 5012065762753897855
+    second: ticks_ring_32
+  - first:
+      213: 1918308796295368598
+    second: ticks_ring_33
+  - first:
+      213: -4859241659605962081
+    second: ticks_ring_34
+  - first:
+      213: -3512195695656802010
+    second: ticks_ring_35
+  - first:
+      213: 3031263850342293176
+    second: ticks_ring_36
+  - first:
+      213: 555098782221244053
+    second: ticks_ring_37
+  - first:
+      213: -4842702685556875708
+    second: ticks_ring_38
+  - first:
+      213: -3031716901260195884
+    second: ticks_ring_39
+  - first:
+      213: 2214352741584387538
+    second: ticks_ring_40
+  - first:
+      213: 5694471325425911074
+    second: ticks_ring_41
+  - first:
+      213: -4743686101667315701
+    second: ticks_ring_42
+  - first:
+      213: -7572112933211742940
+    second: ticks_ring_43
+  - first:
+      213: -2784899368018528803
+    second: ticks_ring_44
+  - first:
+      213: 395438089003312802
+    second: ticks_ring_45
+  - first:
+      213: -86887425530003893
+    second: ticks_ring_46
+  - first:
+      213: -1113750332167080421
+    second: ticks_ring_47
+  - first:
+      213: 1621039636897071930
+    second: ticks_ring_48
+  - first:
+      213: 3296486354470578502
+    second: ticks_ring_49
+  - first:
+      213: 2059578122499433042
+    second: ticks_ring_50
+  - first:
+      213: 5737434693831022724
+    second: ticks_ring_51
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ticks_ring_0
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 212
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e6fc2c334ac36000800000000000000
+      internalID: 28088412815554280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_1
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 227
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daeae0b81480b9280800000000000000
+      internalID: -9035619149789876563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_2
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 231
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76cee5d3c71ba5340800000000000000
+      internalID: 4853386695608822887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_3
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 234
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 40208b27952321d90800000000000000
+      internalID: -7128579900415933948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_4
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 226
+        width: 6
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98e53f46f73592620800000000000000
+      internalID: 2749820854106021513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_5
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 234
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4737ec04c279cd60800000000000000
+      internalID: 7910980406808622925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_6
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 231
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec340d9d76e46b9f0800000000000000
+      internalID: -453088504561253426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_7
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 227
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b1d3899b13d81e30800000000000000
+      internalID: 4474558345285718451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_8
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 212
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d98e77dd58b1dbf70800000000000000
+      internalID: 9204543475175385245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_9
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 208
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f4106fa0b3d6df90800000000000000
+      internalID: -6929118220852914960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_10
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 216
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cae666d756b22460800000000000000
+      internalID: 7215530041376434883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_11
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 216
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3f1d6264c8b8dd6a0800000000000000
+      internalID: -6422824058971827725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_12
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 208
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38f251a0a8e90fb00800000000000000
+      internalID: 860361844539600771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_13
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 191
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5f585e9ee4b197f0800000000000000
+      internalID: -607505537766498468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 200
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c2ca8c15c14b1ea0800000000000000
+      internalID: -5901050571895684410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_15
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 200
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4a531f279c5a8eb0800000000000000
+      internalID: -4716855855317558707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_16
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 191
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e64d300bf44db8bc0800000000000000
+      internalID: -3779694023526853522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_17
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 171
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaca195dc00330a10800000000000000
+      internalID: 1874394701597093034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_18
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 175
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d70bdf11ec4cf20d0800000000000000
+      internalID: -3445318800570994563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_19
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 175
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cb4529596bfe8200800000000000000
+      internalID: 184361064654523334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_20
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 171
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4b3f65918db10d00800000000000000
+      internalID: 937238561725299533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_21
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 160
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a821655728b482680800000000000000
+      internalID: -8779684449872375158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_22
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 160
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f0a96c16f37a69a0800000000000000
+      internalID: -6239046832892567310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_23
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 138
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 121cb28614e504e10800000000000000
+      internalID: 2179845854660903201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_24
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 138
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82df6913459abf470800000000000000
+      internalID: 8429517306628341032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 125
+        width: 30
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a61988a73ade95d0800000000000000
+      internalID: -3053763564725004640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_26
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 125
+        width: 30
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7284fee89432c9080800000000000000
+      internalID: -9179423141650282457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_27
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 99
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1762fc65bc1320e0800000000000000
+      internalID: -2295959819486337254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_28
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 99
+        width: 22
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26007ba74398d9a00800000000000000
+      internalID: 764918370212970594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_29
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 87
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c049e9c370e062a80800000000000000
+      internalID: -8492084623115906036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_30
+      rect:
+        serializedVersion: 2
+        x: 231
+        y: 87
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c852d5b1c17dd4f90800000000000000
+      internalID: -6967676532754143860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_31
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 74
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faed335195d81a570800000000000000
+      internalID: 8476211387435310767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_32
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 61
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f75e7d3914f6e8540800000000000000
+      internalID: 5012065762753897855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_33
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 61
+        width: 29
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 69f41b4cfa33f9a10800000000000000
+      internalID: 1918308796295368598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_34
+      rect:
+        serializedVersion: 2
+        x: 227
+        y: 74
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f923869b471809cb0800000000000000
+      internalID: -4859241659605962081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_35
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 51
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62968ba8f9c224fc0800000000000000
+      internalID: -3512195695656802010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_36
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 41
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8be922c5966311a20800000000000000
+      internalID: 3031263850342293176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_37
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 41
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5969c81c66b14b700800000000000000
+      internalID: 555098782221244053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_38
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 51
+        width: 17
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 44e5d82b0934bccb0800000000000000
+      internalID: -4842702685556875708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_39
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 32
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d786d08a8d2de5d0800000000000000
+      internalID: -3031716901260195884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_40
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 23
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ddbc891616fabe10800000000000000
+      internalID: 2214352741584387538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_41
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 15
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 225c8a7ff73d60f40800000000000000
+      internalID: 5694471325425911074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_42
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 15
+        width: 20
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b008928af9a0b2eb0800000000000000
+      internalID: -4743686101667315701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_43
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 23
+        width: 14
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42dd5c0f7637ae690800000000000000
+      internalID: -7572112933211742940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_44
+      rect:
+        serializedVersion: 2
+        x: 200
+        y: 32
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd5bb02a7cc0a59d0800000000000000
+      internalID: -2784899368018528803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_45
+      rect:
+        serializedVersion: 2
+        x: 74
+        y: 10
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a6a3b9c8d0ec7500800000000000000
+      internalID: 395438089003312802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_46
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 5
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4ef5d9c8505bcef0800000000000000
+      internalID: -86887425530003893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_47
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 0
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1635ba49f92b80f0800000000000000
+      internalID: -1113750332167080421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_48
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 0
+        width: 6
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a33041c06f61f7610800000000000000
+      internalID: 1621039636897071930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_49
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 0
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6492425bfd87fbd20800000000000000
+      internalID: 3296486354470578502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_50
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 5
+        width: 9
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252aebae367159c10800000000000000
+      internalID: 2059578122499433042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ticks_ring_51
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 10
+        width: 11
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 488dccfa4767f9f40800000000000000
+      internalID: 5737434693831022724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      ticks_ring_0: 28088412815554280
+      ticks_ring_1: -9035619149789876563
+      ticks_ring_10: 7215530041376434883
+      ticks_ring_11: -6422824058971827725
+      ticks_ring_12: 860361844539600771
+      ticks_ring_13: -607505537766498468
+      ticks_ring_14: -5901050571895684410
+      ticks_ring_15: -4716855855317558707
+      ticks_ring_16: -3779694023526853522
+      ticks_ring_17: 1874394701597093034
+      ticks_ring_18: -3445318800570994563
+      ticks_ring_19: 184361064654523334
+      ticks_ring_2: 4853386695608822887
+      ticks_ring_20: 937238561725299533
+      ticks_ring_21: -8779684449872375158
+      ticks_ring_22: -6239046832892567310
+      ticks_ring_23: 2179845854660903201
+      ticks_ring_24: 8429517306628341032
+      ticks_ring_25: -3053763564725004640
+      ticks_ring_26: -9179423141650282457
+      ticks_ring_27: -2295959819486337254
+      ticks_ring_28: 764918370212970594
+      ticks_ring_29: -8492084623115906036
+      ticks_ring_3: -7128579900415933948
+      ticks_ring_30: -6967676532754143860
+      ticks_ring_31: 8476211387435310767
+      ticks_ring_32: 5012065762753897855
+      ticks_ring_33: 1918308796295368598
+      ticks_ring_34: -4859241659605962081
+      ticks_ring_35: -3512195695656802010
+      ticks_ring_36: 3031263850342293176
+      ticks_ring_37: 555098782221244053
+      ticks_ring_38: -4842702685556875708
+      ticks_ring_39: -3031716901260195884
+      ticks_ring_4: 2749820854106021513
+      ticks_ring_40: 2214352741584387538
+      ticks_ring_41: 5694471325425911074
+      ticks_ring_42: -4743686101667315701
+      ticks_ring_43: -7572112933211742940
+      ticks_ring_44: -2784899368018528803
+      ticks_ring_45: 395438089003312802
+      ticks_ring_46: -86887425530003893
+      ticks_ring_47: -1113750332167080421
+      ticks_ring_48: 1621039636897071930
+      ticks_ring_49: 3296486354470578502
+      ticks_ring_5: 7910980406808622925
+      ticks_ring_50: 2059578122499433042
+      ticks_ring_51: 5737434693831022724
+      ticks_ring_6: -453088504561253426
+      ticks_ring_7: 4474558345285718451
+      ticks_ring_8: 9204543475175385245
+      ticks_ring_9: -6929118220852914960
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
