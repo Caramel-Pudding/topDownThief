@@ -88,12 +88,20 @@ public class LockpickingUI : MonoBehaviour
         UpdateArcVisuals();
     }
 
-    private void UpdateArcVisuals()
-    {
-        if (!successArc) return;
-        successArc.type = Image.Type.Filled;
-        successArc.fillMethod = Image.FillMethod.Radial360;
-        successArc.fillAmount = Mathf.Clamp01(arcSize / 360f);
-        successArc.rectTransform.localEulerAngles = new Vector3(0f, 0f, -arcCenter);
-    }
+private void UpdateArcVisuals()
+{
+    if (!successArc) return;
+
+    successArc.type = Image.Type.Filled;
+    successArc.fillMethod = Image.FillMethod.Radial360;
+    successArc.fillOrigin = (int)Image.Origin360.Top; // 0° вверх
+    successArc.fillClockwise = true;
+
+    successArc.fillAmount = Mathf.Clamp01(arcSize / 360f);
+
+    // ВАЖНО: рисуем сектор, центрированный на arcCenter
+    float start = arcCenter - arcSize * 0.5f;               // начало сектора
+    successArc.rectTransform.localEulerAngles = new Vector3(0f, 0f, -start);
+}
+
 }
