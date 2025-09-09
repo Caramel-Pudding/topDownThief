@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
 
@@ -7,24 +6,27 @@ using TMPro;
 public class Loot : MonoBehaviour
 {
     private InputSystem_Actions controls;
+
+    [Header("UI")]
     public TMP_Text promptText;
-    public Slider progressBar;
-    public float holdDuration = 3f;
+
+    [Header("Interaction")]
     public string playerTag = "Player";
 
-    [Header("Item Settings")]   
+    [Header("Item Settings")]
     public string itemId = "key";
 
     private bool playerInside;
-    private bool isHolding;
-    private float holdTimer;
     private bool interactionComplete;
 
     void Awake()
     {
         controls = new InputSystem_Actions();
-        controls.Player.Interact.performed += _ => isHolding = true;
-        controls.Player.Interact.canceled += _ => DropInteraction();
+        controls.Player.Interact.performed += _ =>
+        {
+            if (playerInside && !interactionComplete)
+                CompleteInteraction();
+        };
     }
 
     void OnEnable() => controls.Player.Enable();
@@ -33,7 +35,10 @@ public class Loot : MonoBehaviour
     void OnTriggerEnter2D(Collider2D body)
     {
         if (body.CompareTag(playerTag))
+        {
             playerInside = true;
+            UpdatePrompt(true);
+        }
     }
 
     void OnTriggerExit2D(Collider2D body)
@@ -41,59 +46,32 @@ public class Loot : MonoBehaviour
         if (body.CompareTag(playerTag))
         {
             playerInside = false;
-            ResetInteractionUI();
-        }
-    }
-
-    void Update()
-    {
-        if (!playerInside || interactionComplete) return;
-
-        var keyName = controls.Player.Interact.bindings[0].ToDisplayString();
-        promptText.text = $"{keyName}";
-        promptText.enabled = true;
-
-        if (isHolding)
-        {
-            holdTimer += Time.deltaTime;
-            ShowProgress(true);
-            progressBar.value = Mathf.Clamp01(holdTimer / holdDuration);
-
-            if (holdTimer >= holdDuration)
-                CompleteInteraction();
-        }
-        else
-        {
-            holdTimer = 0f;
-            progressBar.value = 0f;
+            UpdatePrompt(false);
         }
     }
 
     private void CompleteInteraction()
     {
         interactionComplete = true;
-        promptText.enabled = false;
-        ShowProgress(false);
+        UpdatePrompt(false);
 
         InventoryManager.Instance.AddItem(itemId);
         Destroy(gameObject);
     }
 
-    private void ShowProgress(bool show)
+    private void UpdatePrompt(bool show)
     {
-        progressBar.gameObject.SetActive(show);
-    }
+        if (!promptText) return;
+        if (!show)
+        {
+            promptText.enabled = false;
+            return;
+        }
 
-    private void DropInteraction()
-    {
-        isHolding = false;
-        ShowProgress(false);
-    }
-
-    private void ResetInteractionUI()
-    {
-        holdTimer = 0f;
-        promptText.enabled = false;
-        progressBar.gameObject.SetActive(false);
+        var keyName = controls.Player.Interact.bindings.Count > 0
+            ? controls.Player.Interact.bindings[0].ToDisplayString()
+            : "Interact";
+        promptText.text = keyName;
+        promptText.enabled = true;
     }
 }
