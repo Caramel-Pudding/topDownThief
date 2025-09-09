@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Facing Source")]
     [SerializeField] private MonoBehaviour facingSource; // must implement IFacingProvider
 
+    public System.Action<Vector2> OnDashStart;
+    public System.Action<Vector2> OnDashEnd;
+
     private IFacingProvider facing;
     private Rigidbody2D rb;
     private Vector2 moveInput;
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump(InputAction.CallbackContext ctx)
     {
         if (isDashing) return;
-        if (slowTimer > 0f) return; // lock dash during recovery
+        if (slowTimer > 0f) return;
 
         Vector2 dir;
         if (moveInput.sqrMagnitude > 0.0001f)
@@ -84,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
         dashVelocity = dir * (dashDistance / dashDuration);
         dashTimer = dashDuration;
         isDashing = true;
+        OnDashStart?.Invoke(dir);
     }
 
     void Update()
@@ -107,7 +111,8 @@ public class PlayerMovement : MonoBehaviour
                 isDashing = false;
                 rb.linearVelocity = Vector2.zero;
                 speedMul = recoverySpeedMultiplier;
-                slowTimer = recoveryDuration; // start recovery lock
+                slowTimer = recoveryDuration;
+                OnDashEnd?.Invoke(dashVelocity.normalized);
             }
         }
         else
