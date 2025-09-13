@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: New Guard Config
   m_EditorClassIdentifier: 
   patrolSpeed: 1.8
-  chaseSpeed: 2.6
+  chaseSpeed: 6
   visionRadius: 6
   fov: 90
   obstaclesMask:
     serializedVersion: 2
     m_Bits: 8
-  detectionTime: 1.2
-  loseTime: 1
+  detectionTime: 0.5
+  loseTime: 2
   graceAfterLost: 0.2
   attackRange: 1.2
   attackCooldown: 0.8
