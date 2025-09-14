@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 using TMPro;
 
 [RequireComponent(typeof(Collider2D))]
-public class DoorInteractable : MonoBehaviour
+public class DoorInteractable : MonoBehaviour, IInteractable
 {
     public enum DoorAccessMode { Unlocked, Pickable, KeyRequired }
 
     [Header("Refs")]
     [SerializeField] private DoorController door;
-    [SerializeField] private LockComponent lockComponent; // used in Pickable/KeyRequired
+    [SerializeField] private LockComponent lockComponent;
 
     [Header("Mode")]
     [SerializeField] private DoorAccessMode mode = DoorAccessMode.Unlocked;
@@ -20,8 +20,6 @@ public class DoorInteractable : MonoBehaviour
     [SerializeField] private bool consumeKey = false;
     [SerializeField] private bool allowPickIfNoKey = false;
 
-    [Header("Unlock Behavior")]
-
     [Header("UI")]
     [SerializeField] private TMP_Text promptText;
     [SerializeField] private Transform uiAnchor;
@@ -30,16 +28,21 @@ public class DoorInteractable : MonoBehaviour
     [Header("Interaction")]
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private bool allowClose = true;
+    [SerializeField] private float interactDebounce = 0.1f;
 
     [Header("On Fail Noise")]
     [SerializeField] private float failNoiseRadius = 30f;
 
+    [Header("Persistence")]
+    [SerializeField] private string saveKey = ""; // e.g. "door_A1_unlocked"
+
     private InputSystem_Actions controls;
     private bool playerInside;
     private bool minigameActive;
-
-    // Internal state: once true, this door behaves as Unlocked forever (until you reset it manually)
     private bool permanentlyUnlocked;
+    private float lastInteractTime;
+
+    private ISaveStore saveStore;
 
     private bool IsEffectivelyUnlocked =>
         permanentlyUnlocked ||
@@ -59,10 +62,33 @@ public class DoorInteractable : MonoBehaviour
 
         controls = new InputSystem_Actions();
         controls.Player.Interact.performed += OnInteract;
+
+        saveStore = new PlayerPrefsSaveStore();
+        LoadPersistentState();
+
+        // Ensure hidden on scene load
+        SetPromptVisible(false);
     }
 
-    void OnEnable() { if (playerInside) controls.Player.Enable(); }
-    void OnDisable() { controls.Player.Disable(); }
+    void OnEnable()
+    {
+        // Do not enable input until player is inside
+        if (playerInside)
+        {
+            try { controls.Player.Enable(); } catch {}
+        }
+        else
+        {
+            SetPromptVisible(false);
+        }
+    }
+
+    void OnDisable()
+    {
+        try { controls.Player.Disable(); } catch {}
+        SetPromptVisible(false);
+    }
+
     void OnDestroy()
     {
         controls.Player.Interact.performed -= OnInteract;
@@ -73,7 +99,7 @@ public class DoorInteractable : MonoBehaviour
     {
         if (!other.CompareTag(playerTag)) return;
         playerInside = true;
-        controls.Player.Enable();
+        try { controls.Player.Enable(); } catch {}
         UpdatePrompt();
     }
 
@@ -81,13 +107,15 @@ public class DoorInteractable : MonoBehaviour
     {
         if (!other.CompareTag(playerTag)) return;
         playerInside = false;
-        controls.Player.Disable();
+        try { controls.Player.Disable(); } catch {}
         SetPromptVisible(false);
     }
 
     private void OnInteract(InputAction.CallbackContext _)
     {
         if (!playerInside || minigameActive) return;
+        if (Time.unscaledTime - lastInteractTime < interactDebounce) return;
+        lastInteractTime = Time.unscaledTime;
 
         if (door.IsOpen)
         {
@@ -99,7 +127,6 @@ public class DoorInteractable : MonoBehaviour
             return;
         }
 
-        // Short-circuit: if the door is effectively unlocked now, just open.
         if (IsEffectivelyUnlocked)
         {
             door.Open();
@@ -139,7 +166,6 @@ public class DoorInteractable : MonoBehaviour
 
     private void HandleKeyRequired()
     {
-        // If already unlocked (e.g., previously opened), treat as unlocked.
         if (IsEffectivelyUnlocked)
         {
             door.Open();
@@ -147,21 +173,12 @@ public class DoorInteractable : MonoBehaviour
             return;
         }
 
-        bool hasKey = !string.IsNullOrEmpty(requiredKeyId)
-                      && InventoryManager.Instance != null
-                      && InventoryManager.Instance.HasItem(requiredKeyId);
-
+        bool hasKey = HasKey();
         if (hasKey)
         {
-            if (consumeKey)
-                InventoryManager.Instance.RemoveItem(requiredKeyId);
-
+            if (consumeKey) InventoryManager.Instance?.RemoveItem(requiredKeyId);
             lockComponent?.ForceUnlock();
-
-            permanentlyUnlocked = true;
-            // optional: switch mode to Unlocked for clarity
-            // mode = DoorAccessMode.Unlocked;
-
+            SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
             door.Open();
             UpdatePrompt();
             return;
@@ -174,13 +191,13 @@ public class DoorInteractable : MonoBehaviour
                 StartLockpicking();
                 return;
             }
-
             door.Open();
             UpdatePrompt();
             return;
         }
 
-        UpdatePrompt(); // show requirement
+        // Requirement message will be shown only while inside trigger (guarded in UpdatePrompt)
+        UpdatePrompt();
     }
 
     private void StartLockpicking()
@@ -203,8 +220,7 @@ public class DoorInteractable : MonoBehaviour
             if (success)
             {
                 lockComponent?.ForceUnlock();
-                permanentlyUnlocked = true;
-                // optional: mode = DoorAccessMode.Unlocked;
+                SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
                 door.Open();
             }
             else
@@ -220,7 +236,14 @@ public class DoorInteractable : MonoBehaviour
     {
         if (!promptText) return;
 
-        string keyName = controls.Player.Interact.GetBindingDisplayString();
+        // Do not show any prompt if player is not inside or minigame is active
+        if (!playerInside || minigameActive)
+        {
+            SetPromptVisible(false);
+            return;
+        }
+
+        string keyName = SafeBindingDisplay();
         string keyLabel = string.IsNullOrEmpty(keyDisplayName) ? requiredKeyId : keyDisplayName;
 
         if (door.IsOpen)
@@ -232,13 +255,11 @@ public class DoorInteractable : MonoBehaviour
             }
             else
             {
-                promptText.text = string.Empty;
                 SetPromptVisible(false);
             }
             return;
         }
 
-        // If effectively unlocked, always show open prompt
         if (IsEffectivelyUnlocked)
         {
             promptText.text = $"Press {keyName} to open";
@@ -254,42 +275,28 @@ public class DoorInteractable : MonoBehaviour
                 break;
 
             case DoorAccessMode.Pickable:
-                if (lockComponent != null && lockComponent.IsLocked)
-                {
-                    promptText.text = $"Press {keyName} to pick lock";
-                    SetPromptVisible(!minigameActive);
-                }
-                else
-                {
-                    promptText.text = $"Press {keyName} to open";
-                    SetPromptVisible(true);
-                }
+                promptText.text = $"Press {keyName} to pick lock";
+                SetPromptVisible(true);
                 break;
 
             case DoorAccessMode.KeyRequired:
-                bool hasKey = !string.IsNullOrEmpty(requiredKeyId)
-                              && InventoryManager.Instance != null
-                              && InventoryManager.Instance.HasItem(requiredKeyId);
-
-                if (hasKey)
+                if (HasKey())
                 {
                     promptText.text = consumeKey
                         ? $"Press {keyName} to use {keyLabel} and open"
                         : $"Press {keyName} to open (has {keyLabel})";
                     SetPromptVisible(true);
                 }
+                else if (allowPickIfNoKey && lockComponent != null)
+                {
+                    promptText.text = $"Press {keyName} to pick lock (missing {keyLabel})";
+                    SetPromptVisible(true);
+                }
                 else
                 {
-                    if (allowPickIfNoKey && lockComponent != null)
-                    {
-                        promptText.text = $"Press {keyName} to pick lock (missing {keyLabel})";
-                        SetPromptVisible(!minigameActive);
-                    }
-                    else
-                    {
-                        promptText.text = $"{keyLabel} required";
-                        SetPromptVisible(true);
-                    }
+                    // Still show only while inside trigger
+                    promptText.text = $"{keyLabel} required";
+                    SetPromptVisible(true);
                 }
                 break;
         }
@@ -299,6 +306,44 @@ public class DoorInteractable : MonoBehaviour
     {
         if (promptText) promptText.enabled = visible;
     }
+
+    private bool HasKey()
+    {
+        return !string.IsNullOrEmpty(requiredKeyId)
+               && InventoryManager.Instance != null
+               && InventoryManager.Instance.HasItem(requiredKeyId);
+    }
+
+    private void LoadPersistentState()
+    {
+        if (string.IsNullOrEmpty(saveKey)) return;
+        if (saveStore.TryGetBool(saveKey, out var val))
+        {
+            permanentlyUnlocked = val;
+            if (permanentlyUnlocked && lockComponent) lockComponent.ForceUnlock();
+        }
+    }
+
+    private void SetPermanentlyUnlocked(bool value, bool alsoSwitchModeToUnlocked)
+    {
+        permanentlyUnlocked = value;
+        if (lockComponent && value) lockComponent.ForceUnlock();
+        if (alsoSwitchModeToUnlocked) mode = DoorAccessMode.Unlocked;
+
+        if (!string.IsNullOrEmpty(saveKey))
+            saveStore.SetBool(saveKey, permanentlyUnlocked);
+    }
+
+    private string SafeBindingDisplay()
+    {
+        try { return controls.Player.Interact.GetBindingDisplayString(); }
+        catch { return "Interact"; }
+    }
+
+    // IInteractable
+    public bool CanInteract(object actor) => playerInside && !minigameActive;
+    public void Interact(object actor) => OnInteract(default);
+    public string GetPrompt(object actor) => promptText ? promptText.text : string.Empty;
 
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()

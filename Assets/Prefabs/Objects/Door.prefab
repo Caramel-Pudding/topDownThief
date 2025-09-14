@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3435750767348250233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3802106195170464106}
+  m_Layer: 5
+  m_Name: LocpickingGameLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3802106195170464106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3435750767348250233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4334285046757008561}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5899710082939874399
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,9 +44,11 @@ GameObject:
   - component: {fileID: 3628338328524083242}
   - component: {fileID: 5765180461480333062}
   - component: {fileID: 1639489767558590887}
-  - component: {fileID: 301609785179914978}
   - component: {fileID: -4250174512536940097}
-  m_Layer: 0
+  - component: {fileID: 7128438398005496022}
+  - component: {fileID: 5585604301733918404}
+  - component: {fileID: 5529303563977351410}
+  m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,11 +63,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5899710082939874399}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.066110015, y: 19.969744, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3802106195170464106}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1843281603761645731
@@ -79,7 +113,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 454380717
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -5062486230716756072, guid: ea2e3ab0aa8652942b2698b707f7cbb8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -211,22 +245,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2, y: 3.5295522}
   m_EdgeRadius: 0
---- !u!114 &301609785179914978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5899710082939874399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 157b183cbf36dfc41ba968b66fcb620b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  keyId: key
-  playerTag: Player
-  promptText: {fileID: 0}
-  openDoorSprite: {fileID: 7477827516038983822, guid: ea2e3ab0aa8652942b2698b707f7cbb8, type: 3}
 --- !u!114 &-4250174512536940097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +286,7 @@ MonoBehaviour:
     m_TrimEdge: 0
     m_FlipX: 0
     m_FlipY: 0
-    m_InitialTrim: 0.1
+    m_InitialTrim: 0
   m_CastingOption: 1
   m_PreviousTrimEdge: 0
   m_PreviousEdgeProcessing: 1
@@ -280,3 +298,58 @@ MonoBehaviour:
     - rid: 6325891243727651074
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
+--- !u!114 &7128438398005496022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0343dc1f04820c945b1ace837cae10d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  solidCollider: {fileID: 5765180461480333062}
+  triggerCollider: {fileID: 5765180461480333062}
+  spriteRenderer: {fileID: 1843281603761645731}
+  shadowCaster: {fileID: -4250174512536940097}
+--- !u!114 &5585604301733918404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 057b4a01334a08f4c8e47609a7772172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  locked: 1
+  difficulty: 1
+--- !u!114 &5529303563977351410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661e8bbcead9c2e43947ba0288d3264a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  door: {fileID: 7128438398005496022}
+  lockComponent: {fileID: 5585604301733918404}
+  mode: 2
+  requiredKeyId: key.hallway
+  keyDisplayName: Hallway Key
+  consumeKey: 1
+  allowPickIfNoKey: 0
+  promptText: {fileID: 0}
+  uiAnchor: {fileID: 3802106195170464106}
+  lockpickingPrefab: {fileID: 8973223098770324289, guid: c346633379cf1e6468e1230da9540963, type: 3}
+  playerTag: Player
+  allowClose: 1
+  failNoiseRadius: 30
