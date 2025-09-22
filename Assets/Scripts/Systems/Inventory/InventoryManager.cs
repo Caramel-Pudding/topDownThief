@@ -15,7 +15,6 @@ public class InventoryManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     // === Add ===
