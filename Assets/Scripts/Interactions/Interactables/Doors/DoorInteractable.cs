@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(Collider2D))]
 public class DoorInteractable : MonoBehaviour, IInteractable
@@ -36,6 +37,15 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     [Header("Persistence")]
     [SerializeField] private string saveKey = ""; // e.g. "door_A1_unlocked"
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip openClip;
+    [SerializeField] private AudioClip closeClip;
+    [SerializeField] private AudioClip lockedClip; // optional: when user cannot open
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
+    [SerializeField] private AudioMixerGroup outputGroup; // optional
+    [SerializeField] private bool twoDSound = true;
+    private AudioSource audioSource;
+
     private InputSystem_Actions controls;
     private bool playerInside;
     private bool minigameActive;
@@ -66,13 +76,12 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         saveStore = new PlayerPrefsSaveStore();
         LoadPersistentState();
 
-        // Ensure hidden on scene load
+        EnsureAudioSource();
         SetPromptVisible(false);
     }
 
     void OnEnable()
     {
-        // Do not enable input until player is inside
         if (playerInside)
         {
             try { controls.Player.Enable(); } catch {}
@@ -122,6 +131,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
             if (allowClose)
             {
                 door.Close();
+                PlayCloseSFX();
                 UpdatePrompt();
             }
             return;
@@ -130,6 +140,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         if (IsEffectivelyUnlocked)
         {
             door.Open();
+            PlayOpenSFX();
             UpdatePrompt();
             return;
         }
@@ -138,6 +149,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         {
             case DoorAccessMode.Unlocked:
                 door.Open();
+                PlayOpenSFX();
                 UpdatePrompt();
                 break;
 
@@ -160,6 +172,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         else
         {
             door.Open();
+            PlayOpenSFX();
             UpdatePrompt();
         }
     }
@@ -169,6 +182,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         if (IsEffectivelyUnlocked)
         {
             door.Open();
+            PlayOpenSFX();
             UpdatePrompt();
             return;
         }
@@ -180,6 +194,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
             lockComponent?.ForceUnlock();
             SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
             door.Open();
+            PlayOpenSFX();
             UpdatePrompt();
             return;
         }
@@ -192,12 +207,14 @@ public class DoorInteractable : MonoBehaviour, IInteractable
                 return;
             }
             door.Open();
+            PlayOpenSFX();
             UpdatePrompt();
             return;
         }
 
-        // Requirement message will be shown only while inside trigger (guarded in UpdatePrompt)
+        // Cannot open: show requirement and play locked feedback
         UpdatePrompt();
+        PlayLockedSFX();
     }
 
     private void StartLockpicking()
@@ -222,10 +239,12 @@ public class DoorInteractable : MonoBehaviour, IInteractable
                 lockComponent?.ForceUnlock();
                 SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
                 door.Open();
+                PlayOpenSFX();
             }
             else
             {
                 NoiseSystem.Broadcast((Vector2)transform.position, failNoiseRadius, 1f);
+                PlayLockedSFX();
             }
 
             if (playerInside) UpdatePrompt();
@@ -236,7 +255,6 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     {
         if (!promptText) return;
 
-        // Do not show any prompt if player is not inside or minigame is active
         if (!playerInside || minigameActive)
         {
             SetPromptVisible(false);
@@ -294,7 +312,6 @@ public class DoorInteractable : MonoBehaviour, IInteractable
                 }
                 else
                 {
-                    // Still show only while inside trigger
                     promptText.text = $"{keyLabel} required";
                     SetPromptVisible(true);
                 }
@@ -352,4 +369,31 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         Gizmos.DrawWireSphere(transform.position, failNoiseRadius);
     }
 #endif
+
+    // --- Audio helpers ---
+    private void EnsureAudioSource()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource) audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.spatialBlend = twoDSound ? 0f : 1f;
+        if (outputGroup) audioSource.outputAudioMixerGroup = outputGroup;
+    }
+
+    private void PlayOpenSFX()
+    {
+        if (openClip) audioSource.PlayOneShot(openClip, sfxVolume);
+    }
+
+    private void PlayCloseSFX()
+    {
+        if (closeClip) audioSource.PlayOneShot(closeClip, sfxVolume);
+    }
+
+    private void PlayLockedSFX()
+    {
+        if (lockedClip) audioSource.PlayOneShot(lockedClip, sfxVolume);
+    }
 }

@@ -36,6 +36,30 @@ public class PlayerMovement : MonoBehaviour
     private float dashTimer;
     private Vector2 dashVelocity;
 
+    // --- Footstep Audio ---
+    [Header("Footsteps Audio")]
+    [SerializeField] private AudioSource stepSource;
+    [SerializeField] private AudioClip[] stepClips;
+    [SerializeField, Range(0f, 1f)] private float stepVolume = 0.9f;
+    [SerializeField] private float stepDistance = 0.6f;
+    [SerializeField] private float minMoveSpeedForSteps = 0.5f;
+    [SerializeField] private bool requireGrounded = true;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private float groundCheckRadius = 0.1f;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private Vector2 pitchJitter = new Vector2(0.95f, 1.05f);
+
+    private Vector2 lastPos;
+    private float traveledSinceLastStep;
+    private int lastStepClipIndex = -1;
+
+    // --- Dash Audio ---
+    [Header("Dash Audio")]
+    [SerializeField] private AudioSource dashSource;
+    [SerializeField] private AudioClip dashClip;
+    [SerializeField, Range(0f, 1f)] private float dashVolume = 1f;
+    [SerializeField] private Vector2 dashPitchJitter = new Vector2(0.95f, 1.05f);
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -44,6 +68,10 @@ public class PlayerMovement : MonoBehaviour
         facing = facingSource as IFacingProvider ?? GetComponentInParent<IFacingProvider>();
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
         rb.interpolation = RigidbodyInterpolation2D.Interpolate;
+
+        EnsureStepSource();
+        EnsureDashSource();
+        lastPos = rb.position;
     }
 
     void OnEnable()
@@ -88,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
         dashTimer = dashDuration;
         isDashing = true;
         OnDashStart?.Invoke(dir);
+
+        PlayDashSFX();
     }
 
     void Update()
@@ -105,6 +135,8 @@ public class PlayerMovement : MonoBehaviour
         if (isDashing)
         {
             rb.linearVelocity = dashVelocity;
+            FootstepResetWhileDash();
+
             dashTimer -= Time.fixedDeltaTime;
             if (dashTimer <= 0f)
             {
@@ -118,7 +150,122 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             float v = speed * speedMul;
-            rb.MovePosition(rb.position + moveInput * v * Time.fixedDeltaTime);
+            Vector2 nextPos = rb.position + moveInput * v * Time.fixedDeltaTime;
+            rb.MovePosition(nextPos);
+        }
+
+        UpdateFootsteps();
+    }
+
+    // --- Footsteps logic (unchanged) ---
+    private void UpdateFootsteps()
+    {
+        if (stepClips == null || stepClips.Length == 0 || stepSource == null) return;
+        if (isDashing) { lastPos = rb.position; return; }
+
+        // distance moved this physics tick
+        float delta = Vector2.Distance(rb.position, lastPos);
+        lastPos = rb.position;
+
+        // derive speed from distance per fixed tick instead of rb.linearVelocity
+        float currentSpeed = delta / Time.fixedDeltaTime;
+
+        if (requireGrounded && !IsGrounded())
+        {
+            traveledSinceLastStep = Mathf.Min(traveledSinceLastStep, stepDistance * 0.5f);
+            return;
+        }
+
+        bool moving = moveInput.sqrMagnitude > 0.0001f && currentSpeed >= minMoveSpeedForSteps;
+        if (!moving) return;
+
+        traveledSinceLastStep += delta;
+
+        if (traveledSinceLastStep >= stepDistance)
+        {
+            traveledSinceLastStep -= stepDistance;
+            PlayStep();
         }
     }
+
+
+    private void PlayStep()
+    {
+        int clipIndex = Random.Range(0, stepClips.Length);
+        if (stepClips.Length > 1 && clipIndex == lastStepClipIndex)
+            clipIndex = (clipIndex + 1) % stepClips.Length;
+        lastStepClipIndex = clipIndex;
+
+        var clip = stepClips[clipIndex];
+        if (!clip) return;
+
+        float p = Random.Range(pitchJitter.x, pitchJitter.y);
+        float prevPitch = stepSource.pitch;
+        stepSource.pitch = p;
+
+        stepSource.PlayOneShot(clip, stepVolume);
+        stepSource.pitch = prevPitch;
+    }
+
+    private bool IsGrounded()
+    {
+        Vector2 c = groundCheck ? (Vector2)groundCheck.position : rb.position;
+        Collider2D[] buf = new Collider2D[1];
+        var filter = new ContactFilter2D { useLayerMask = true, useTriggers = false };
+        filter.SetLayerMask(groundMask);
+        int count = Physics2D.OverlapCircle(c, groundCheckRadius, filter, buf);
+        return count > 0;
+    }
+
+    private void FootstepResetWhileDash()
+    {
+        traveledSinceLastStep = 0f;
+    }
+
+    private void EnsureStepSource()
+    {
+        if (!stepSource)
+        {
+            stepSource = GetComponent<AudioSource>();
+            if (!stepSource) stepSource = gameObject.AddComponent<AudioSource>();
+        }
+        stepSource.playOnAwake = false;
+        stepSource.loop = false;
+        stepSource.spatialBlend = 0f;
+    }
+
+    private void EnsureDashSource()
+    {
+        if (!dashSource)
+        {
+            dashSource = gameObject.AddComponent<AudioSource>();
+        }
+        dashSource.playOnAwake = false;
+        dashSource.loop = false;
+        dashSource.spatialBlend = 0f;
+    }
+
+    private void PlayDashSFX()
+    {
+        if (!dashClip || dashSource == null) return;
+
+        float p = Random.Range(dashPitchJitter.x, dashPitchJitter.y);
+        float prevPitch = dashSource.pitch;
+        dashSource.pitch = p;
+
+        dashSource.PlayOneShot(dashClip, dashVolume);
+        dashSource.pitch = prevPitch;
+    }
+
+#if UNITY_EDITOR
+    void OnDrawGizmosSelected()
+    {
+        if (requireGrounded)
+        {
+            Gizmos.color = Color.cyan;
+            Vector3 c = groundCheck ? groundCheck.position : transform.position;
+            Gizmos.DrawWireSphere(c, groundCheckRadius);
+        }
+    }
+#endif
 }

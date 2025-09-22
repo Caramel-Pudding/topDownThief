@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.Audio;
 
 [RequireComponent(typeof(Collider2D))]
 public class Loot : MonoBehaviour
@@ -30,14 +31,26 @@ public class Loot : MonoBehaviour
     [Tooltip("Destroy this GameObject after successful pickup/collect.")]
     public bool destroyOnPickup = true;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip pickupClip;   // played on successful pickup
+    [SerializeField] private AudioClip denyClip;     // played if pickup failed
+    [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
+    [SerializeField] private AudioMixerGroup outputGroup; // optional
+    [SerializeField] private bool twoDSound = true;  // 2D ensures consistent volume
+    private AudioSource audioSource;
+
     private bool playerInside;
     private bool interactionComplete;
     private float lastInteractTime;
+    private Collider2D cachedCollider;
 
     void Awake()
     {
         controls = new InputSystem_Actions();
         controls.Player.Interact.performed += OnInteractPerformed;
+
+        cachedCollider = GetComponent<Collider2D>();
+        EnsureAudioSource();
     }
 
     void OnEnable()
@@ -90,27 +103,46 @@ public class Loot : MonoBehaviour
     public bool CollectNow()
     {
         if (interactionComplete) return false;
-        var success = GrantItems();
-        if (success)
-        {
-            interactionComplete = true;
-            UpdatePrompt(false);
-            if (destroyOnPickup) Destroy(gameObject);
-        }
+
+        bool success = GrantItems();
+        HandlePostGrant(success);
         return success;
     }
 
     private void CompleteInteraction()
     {
-        if (GrantItems())
+        bool success = GrantItems();
+        HandlePostGrant(success);
+    }
+
+    private void HandlePostGrant(bool success)
+    {
+        if (success)
         {
             interactionComplete = true;
             UpdatePrompt(false);
-            if (destroyOnPickup) Destroy(gameObject);
+
+            // Prevent re-trigger while sound plays
+            if (cachedCollider) cachedCollider.enabled = false;
+
+            float delay = 0f;
+            if (pickupClip)
+            {
+                audioSource.PlayOneShot(pickupClip, sfxVolume);
+                delay = pickupClip.length;
+            }
+
+            if (destroyOnPickup)
+            {
+                // Hide visuals immediately but let the sound finish
+                HideVisualsIfAny();
+                Destroy(gameObject, Mathf.Max(0.01f, delay));
+            }
         }
         else
         {
-            // Optional: play deny SFX or feedback
+            if (denyClip) audioSource.PlayOneShot(denyClip, sfxVolume);
+            // Keep object; player may try again (e.g., inventory full logic if you add it later)
         }
     }
 
@@ -143,13 +175,11 @@ public class Loot : MonoBehaviour
     {
         bool added = false;
 
-        // If you DO have AddItem(string, int), uncomment and prefer the direct call:
+        // If you DO have AddItem(string, int), prefer the direct call:
         // added |= InventoryManager.Instance.AddItem(id, count);
 
-        // Generic fallback: call AddItem(string) multiple times
         for (int i = 0; i < count; i++)
         {
-            // Try legacy signature
             added |= InventoryManager.Instance.AddItem(id);
         }
 
@@ -173,5 +203,27 @@ public class Loot : MonoBehaviour
         var label = !string.IsNullOrEmpty(displayName) ? displayName : itemId;
         promptText.text = $"Press {keyName} to loot {label}";
         promptText.enabled = true;
+    }
+
+    private void EnsureAudioSource()
+    {
+        audioSource = GetComponent<AudioSource>();
+        if (!audioSource) audioSource = gameObject.AddComponent<AudioSource>();
+
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+        audioSource.spatialBlend = twoDSound ? 0f : 1f;
+        if (outputGroup) audioSource.outputAudioMixerGroup = outputGroup;
+        // Other defaults (volume/pitch) are controlled via PlayOneShot and sfxVolume
+    }
+
+    private void HideVisualsIfAny()
+    {
+        // Optional: disable renderers so loot disappears immediately
+        var renderers = GetComponentsInChildren<Renderer>();
+        for (int i = 0; i < renderers.Length; i++)
+            renderers[i].enabled = false;
+
+        if (promptText) promptText.enabled = false;
     }
 }
