@@ -6,13 +6,17 @@ using UnityEngine.Rendering.Universal;
 public class DoorController : MonoBehaviour
 {
     [Header("Refs")]
-    [SerializeField] private Collider2D solidCollider;
-    [SerializeField] private Collider2D triggerCollider;
+    [SerializeField] private Collider2D solidCollider;      // non-trigger barrier
+    [SerializeField] private Collider2D triggerCollider;    // interact trigger (optional)
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private ShadowCaster2D shadowCaster;
 
     [Header("Behaviour")]
     [SerializeField] private float autoCloseSeconds = 0f;
+
+    [Header("Layers")]
+    [SerializeField] private string closedLayerName = "Obstacles";
+    [SerializeField] private string openLayerName = "Default";
 
     [Header("Events")]
     public UnityEvent OnOpened;
@@ -22,6 +26,9 @@ public class DoorController : MonoBehaviour
     private bool initialRendererEnabled = true;
     private int initialLayer;
     private float autoCloseTimer;
+
+    private int closedLayer = -1;
+    private int openLayer = -1;
 
     public bool IsOpen => opened;
 
@@ -47,9 +54,21 @@ public class DoorController : MonoBehaviour
     {
         if (!spriteRenderer) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         if (spriteRenderer) initialRendererEnabled = spriteRenderer.enabled;
+
         initialLayer = gameObject.layer;
 
+        // Resolve layers early
+        closedLayer = LayerMask.NameToLayer(closedLayerName);
+        openLayer = LayerMask.NameToLayer(openLayerName);
+
+        if (closedLayer < 0)
+            Debug.LogError($"[DoorController] Layer '{closedLayerName}' not found. Check Project Settings > Tags and Layers.");
+        if (openLayer < 0)
+            Debug.LogError($"[DoorController] Layer '{openLayerName}' not found. Check Project Settings > Tags and Layers.");
+
         if (!solidCollider) OnValidate();
+
+        // Apply initial visual/physics state without invoking events
         ApplyState(opened, invokeEvents: false);
     }
 
@@ -82,10 +101,13 @@ public class DoorController : MonoBehaviour
 
     private void ApplyState(bool isOpen, bool invokeEvents)
     {
-        if (spriteRenderer) spriteRenderer.enabled = !isOpen ? initialRendererEnabled : false;
-        if (solidCollider) solidCollider.enabled = !isOpen;
+        if (spriteRenderer) spriteRenderer.enabled = isOpen ? false : initialRendererEnabled;
         if (shadowCaster) shadowCaster.enabled = !isOpen;
-        gameObject.layer = isOpen ? gameObject.layer : initialLayer;
+        if (solidCollider) solidCollider.enabled = !isOpen;
+
+        gameObject.layer = isOpen
+            ? LayerMask.NameToLayer(openLayerName)
+            : LayerMask.NameToLayer(closedLayerName);
 
         if (invokeEvents)
         {
