@@ -249,7 +249,37 @@ MonoBehaviour:
   dashDuration: 0.1
   recoverySpeedMultiplier: 0.3
   recoveryDuration: 0.5
+  noiseObstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  stepNoiseRadius: 4
+  stepNoiseExpandSpeed: 20
+  stepNoiseLifeAfterReach: 0.15
+  dashNoiseRadius: 6
+  dashNoiseExpandSpeed: 28
+  dashNoiseLifeAfterReach: 0.2
   facingSource: {fileID: 8696875285175229378}
+  stepSource: {fileID: 0}
+  stepClips:
+  - {fileID: 8300000, guid: 55ebb54abfb4d7840a0c6a05dcdd76a3, type: 3}
+  - {fileID: 8300000, guid: 3c8b66f0e1d9f6948bb3de2bd0cc5810, type: 3}
+  - {fileID: 8300000, guid: 7374272c305f0504790fd1040f6049c0, type: 3}
+  - {fileID: 8300000, guid: 5da973f09562e5146ab0e2e1f9d64457, type: 3}
+  - {fileID: 8300000, guid: f8cb4226115c24542855aba45c2e15e2, type: 3}
+  stepVolume: 0.9
+  stepDistance: 2.5
+  minMoveSpeedForSteps: 0.5
+  requireGrounded: 0
+  groundCheck: {fileID: 0}
+  groundCheckRadius: 0.1
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  pitchJitter: {x: 0.95, y: 1.05}
+  dashSource: {fileID: 0}
+  dashClip: {fileID: 8300000, guid: 22a074d3fba85864285d026c7d505568, type: 3}
+  dashVolume: 1
+  dashPitchJitter: {x: 0.95, y: 1.05}
 --- !u!114 &7827923457979386352
 MonoBehaviour:
   m_ObjectHideFlags: 0

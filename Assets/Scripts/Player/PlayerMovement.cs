@@ -17,6 +17,17 @@ public class PlayerMovement : MonoBehaviour
     [Tooltip("Recovery duration after dash ends. During recovery, dash is locked and movement is slowed.")]
     public float recoveryDuration = 2f;
 
+    // --- Noise ---
+    [Header("Noise")]
+    [SerializeField] private LayerMask noiseObstacleMask;
+    [SerializeField] private float stepNoiseRadius = 4f;
+    [SerializeField] private float stepNoiseExpandSpeed = 20f;
+    [SerializeField] private float stepNoiseLifeAfterReach = 0.15f;
+    [SerializeField] private float dashNoiseRadius = 6f;
+    [SerializeField] private float dashNoiseExpandSpeed = 28f;
+    [SerializeField] private float dashNoiseLifeAfterReach = 0.20f;
+
+
     [Header("Facing Source")]
     [SerializeField] private MonoBehaviour facingSource; // must implement IFacingProvider
 
@@ -117,6 +128,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
         OnDashStart?.Invoke(dir);
 
+        NoiseSystem.Emit(rb.position, dashNoiseRadius, dashNoiseExpandSpeed, dashNoiseLifeAfterReach, noiseObstacleMask);
         PlayDashSFX();
     }
 
@@ -205,6 +217,7 @@ public class PlayerMovement : MonoBehaviour
 
         stepSource.PlayOneShot(clip, stepVolume);
         stepSource.pitch = prevPitch;
+        NoiseSystem.Emit(rb.position, stepNoiseRadius, stepNoiseExpandSpeed, stepNoiseLifeAfterReach, noiseObstacleMask);
     }
 
     private bool IsGrounded()

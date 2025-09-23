@@ -226,7 +226,11 @@ public class ChestInteractable : MonoBehaviour, IInteractable
             }
             else
             {
-                NoiseSystem.Broadcast((Vector2)transform.position, failNoiseRadius, 1f);
+                NoiseSystem.Emit((Vector2)transform.position,
+                 failNoiseRadius,
+                 18f,                 // expandSpeed
+                 0.12f,               // lifeAfterReach
+                 LayerMask.GetMask("Obstacles")); // или у тебя есть поле/константа с маской
                 UpdatePrompt();
             }
         });

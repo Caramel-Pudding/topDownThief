@@ -53,6 +53,14 @@ public class GuardContext
 	public WaypointPath Path { get; }
 	public Transform Player { get; }
 
+	public NoiseInbox Noise { get; private set; }
+	public void WriteNoise(Vector2 point, float time, float strength = 1f)
+	{
+		Noise = new NoiseInbox { HasSignal = true, Point = point, Time = time, Strength = strength };
+	}
+	public void ClearNoise() => Noise.Clear();
+
+
 	public GuardContext(Transform self, GuardConfig config, Mover mover, GuardPerception perception, GuardDetector detector, WaypointPath path, Transform player)
 	{
 		Self = self;
@@ -64,4 +72,3 @@ public class GuardContext
 		Player = player;
 	}
 }
-// Note: The GuardConfig, Mover, GuardPerception, GuardDetector, WaypointPath classes and StateAsset interface are assumed to be defined elsewhere in the project.
