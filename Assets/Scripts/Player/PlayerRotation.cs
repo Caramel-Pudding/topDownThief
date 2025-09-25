@@ -86,8 +86,8 @@ public class PlayerWithFOV : MonoBehaviour, IFacingProvider
                     break;
 
                 Vector2 pos = center + dir * r * pixelPerUnit;
-                int px = Mathf.RoundToInt(pos.x);
-                int py = Mathf.RoundToInt(pos.y);
+                int px = Mathf.FloorToInt(pos.x);
+                int py = Mathf.FloorToInt(pos.y);
                 if (px >= 0 && px < texSize && py >= 0 && py < texSize)
                     pixels[py * texSize + px] = new Color32(255, 255, 255, 255);
 

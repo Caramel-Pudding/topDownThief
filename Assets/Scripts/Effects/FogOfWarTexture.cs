@@ -65,8 +65,8 @@ public class FogOfWarTexture : MonoBehaviour
 
                     // Переводим worldPos в координаты глобальной карты
                     Vector2 fogTexPos = WorldToTex(worldPos);
-                    int fogPx = Mathf.RoundToInt(fogTexPos.x);
-                    int fogPy = Mathf.RoundToInt(fogTexPos.y);
+                    int fogPx = Mathf.FloorToInt(fogTexPos.x);
+                    int fogPy = Mathf.FloorToInt(fogTexPos.y);
                     if (fogPx < 0 || fogPx >= texSize || fogPy < 0 || fogPy >= texSize)
                         continue;
                     int fogIdx = fogPy * texSize + fogPx;
