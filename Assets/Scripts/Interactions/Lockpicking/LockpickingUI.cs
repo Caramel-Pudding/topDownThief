@@ -20,6 +20,13 @@ public class LockpickingUI : MonoBehaviour
     [SerializeField] private AudioClip failClip;     // failed lock
     [SerializeField, Range(0f, 1f)] private float volume = 1f;
 
+    [Header("Noise On Fail")]
+    [SerializeField] private float failNoiseRadius = 8f;
+    [SerializeField] private float failExpandSpeed = 22f;
+    [SerializeField] private float failLifeAfterReach = 0.15f;
+    [SerializeField] private LayerMask failObstacleMask;         // обычно Obstacles
+    [SerializeField] private Material failRingMaterial;
+
     private AudioSource audioSource;
 
     private InputSystem_Actions controls;
@@ -111,6 +118,14 @@ public class LockpickingUI : MonoBehaviour
         {
             audioSource.PlayOneShot(failClip, volume);
             delay = Mathf.Max(delay, failClip.length);
+
+            NoiseSystem.Emit(
+                (Vector2)transform.position,
+                failNoiseRadius,
+                failExpandSpeed,
+                failLifeAfterReach,
+                failObstacleMask
+            );
         }
 
         // Stop input and hide visuals immediately
