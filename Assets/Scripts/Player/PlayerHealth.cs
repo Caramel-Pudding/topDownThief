@@ -1,6 +1,7 @@
 ﻿using TopDownThief.Interfaces;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
@@ -8,6 +9,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private int currentHealth;
 
     [SerializeField] private UnityEvent onDeath;
+
+    private bool isDead;
 
     private void Awake()
     {
@@ -21,10 +24,23 @@ public class PlayerHealth : MonoBehaviour, IDamageable
             Die();
     }
 
+
+
     private void Die()
     {
-        GlobalUI.Instance.ShowBlockerMessage("YOU DIED");
+        if (isDead) return;
+        isDead = true;
+
+        GlobalUI.Instance.ShowBlockerMessage("YOU DIED\nPress R to Restart");
         onDeath?.Invoke();
-        Time.timeScale = 0f; // Остановить игру
+        Time.timeScale = 0f;
+    }
+
+    private void Update()
+    {
+        if (isDead && Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            GameOverManager.RestartGame();
+        }
     }
 }
