@@ -62,7 +62,7 @@ RectTransform:
   m_GameObject: {fileID: 3155375925274233073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2395721672894597324}
@@ -698,11 +698,60 @@ PrefabInstance:
       propertyPath: m_Name
       value: GoldPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1666589498296357047, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+      propertyPath: m_text
+      value: 'Gold:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956870900687910902, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179727726662434396, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9179727726662434396, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6534128057458930046, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4991851961299438526}
   m_SourcePrefab: {fileID: 100100000, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+--- !u!1 &2721205068766776607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6534128057458930046, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+  m_PrefabInstance: {fileID: 9182359492813569121}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4991851961299438526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721205068766776607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61f24103155293a47a3024f317f243f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldItemId: gold
+  text: {fileID: 7516121984276589782}
+--- !u!114 &7516121984276589782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1666589498296357047, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}
+  m_PrefabInstance: {fileID: 9182359492813569121}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721205068766776607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &8748012808005378631 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 434988799822192166, guid: 78fcf0ade36b7c64da7a89d46ca6241b, type: 3}

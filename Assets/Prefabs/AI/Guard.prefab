@@ -173,7 +173,7 @@ GameObject:
   - component: {fileID: 2837149019353400026}
   - component: {fileID: 5371063125320408852}
   m_Layer: 0
-  m_Name: Sprite
+  m_Name: GuardSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,7 +507,7 @@ MonoBehaviour:
   investigateState: {fileID: 11400000, guid: 7df6812087f970b4db741d249fb9bd71, type: 2}
   autoSwitchToInvestigate: 1
   minInterval: 0.25
-  maxDistance: 20
+  maxDistance: 10
   losObstacles:
     serializedVersion: 2
     m_Bits: 8

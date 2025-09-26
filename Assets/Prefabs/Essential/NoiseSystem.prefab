@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da8d687773f00243991fc81a9f1e543, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ringMaterial: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  ringMaterial: {fileID: 2100000, guid: e26acfb32a54bab48b8462a7885dbf1c, type: 2}
   ringWidth: 0.06
   raySamples: 128
