@@ -35,29 +35,33 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     [SerializeField] private float failNoiseRadius = 30f;
 
     [Header("Persistence")]
-    [SerializeField] private string saveKey = ""; // e.g. "door_A1_unlocked"
+    [SerializeField] private string saveKey = "";
 
     [Header("Audio")]
     [SerializeField] private AudioClip openClip;
     [SerializeField] private AudioClip closeClip;
-    [SerializeField] private AudioClip lockedClip; // optional: when user cannot open
+    [SerializeField] private AudioClip lockedClip;
     [SerializeField, Range(0f, 1f)] private float sfxVolume = 1f;
-    [SerializeField] private AudioMixerGroup outputGroup; // optional
+    [SerializeField] private AudioMixerGroup outputGroup;
     [SerializeField] private bool twoDSound = true;
-    private AudioSource audioSource;
 
+    private AudioSource audioSource;
     private InputSystem_Actions controls;
     private bool playerInside;
     private bool minigameActive;
     private bool permanentlyUnlocked;
     private float lastInteractTime;
-
     private ISaveStore saveStore;
 
-    private bool IsEffectivelyUnlocked =>
-        permanentlyUnlocked ||
-        mode == DoorAccessMode.Unlocked ||
-        (lockComponent != null && !lockComponent.IsLocked);
+    private bool IsEffectivelyUnlocked
+    {
+        get
+        {
+            return permanentlyUnlocked
+                   || mode == DoorAccessMode.Unlocked
+                   || (lockComponent != null && !lockComponent.IsLocked);
+        }
+    }
 
     void Reset()
     {
@@ -77,25 +81,30 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         LoadPersistentState();
 
         EnsureAudioSource();
-        SetPromptVisible(false);
+        ClearPrompt(); // hard-reset UI on startup
+    }
+
+    void Start()
+    {
+        ClearPrompt(); // ensure hidden even if prefab text was enabled
     }
 
     void OnEnable()
     {
         if (playerInside)
         {
-            try { controls.Player.Enable(); } catch {}
+            try { controls.Player.Enable(); } catch { }
         }
         else
         {
-            SetPromptVisible(false);
+            ClearPrompt();
         }
     }
 
     void OnDisable()
     {
-        try { controls.Player.Disable(); } catch {}
-        SetPromptVisible(false);
+        try { controls.Player.Disable(); } catch { }
+        ClearPrompt();
     }
 
     void OnDestroy()
@@ -107,23 +116,26 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
+
         playerInside = true;
-        try { controls.Player.Enable(); } catch {}
+        try { controls.Player.Enable(); } catch { }
         UpdatePrompt();
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
         if (!other.CompareTag(playerTag)) return;
+
         playerInside = false;
-        try { controls.Player.Disable(); } catch {}
-        SetPromptVisible(false);
+        try { controls.Player.Disable(); } catch { }
+        ClearPrompt();
     }
 
     private void OnInteract(InputAction.CallbackContext _)
     {
         if (!playerInside || minigameActive) return;
         if (Time.unscaledTime - lastInteractTime < interactDebounce) return;
+
         lastInteractTime = Time.unscaledTime;
 
         if (door.IsOpen)
@@ -212,7 +224,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
             return;
         }
 
-        // Cannot open: show requirement and play locked feedback
+        // Cannot open
         UpdatePrompt();
         PlayLockedSFX();
     }
@@ -226,7 +238,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         }
 
         minigameActive = true;
-        SetPromptVisible(false);
+        ClearPrompt();
 
         var ui = Instantiate(lockpickingPrefab);
         var follow = uiAnchor ? uiAnchor : transform;
@@ -234,6 +246,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         ui.Begin(lockComponent ? lockComponent.Difficulty : LockDifficulty.Medium, follow, success =>
         {
             minigameActive = false;
+
             if (success)
             {
                 lockComponent?.ForceUnlock();
@@ -243,11 +256,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
             }
             else
             {
-                NoiseSystem.Emit((Vector2)transform.position,
-                 failNoiseRadius,
-                 18f,                 // expandSpeed
-                 0.12f,               // lifeAfterReach
-                 LayerMask.GetMask("Obstacles")); // ил
+                NoiseSystem.Emit(
+                    (Vector2)transform.position,
+                    failNoiseRadius,
+                    18f,
+                    0.12f,
+                    LayerMask.GetMask("Obstacles")
+                );
                 PlayLockedSFX();
             }
 
@@ -257,15 +272,16 @@ public class DoorInteractable : MonoBehaviour, IInteractable
 
     private void UpdatePrompt()
     {
-        if (!promptText) return;
+        if (!promptText)
+            return;
 
         if (!playerInside || minigameActive)
         {
-            SetPromptVisible(false);
+            ClearPrompt();
             return;
         }
 
-        string keyName = SafeBindingDisplay();
+        string keyName = KeyboardBindingDisplay();
         string keyLabel = string.IsNullOrEmpty(keyDisplayName) ? requiredKeyId : keyDisplayName;
 
         if (door.IsOpen)
@@ -277,7 +293,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
             }
             else
             {
-                SetPromptVisible(false);
+                ClearPrompt();
             }
             return;
         }
@@ -328,6 +344,13 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         if (promptText) promptText.enabled = visible;
     }
 
+    private void ClearPrompt()
+    {
+        if (!promptText) return;
+        promptText.text = string.Empty;
+        promptText.enabled = false;
+    }
+
     private bool HasKey()
     {
         return !string.IsNullOrEmpty(requiredKeyId)
@@ -338,6 +361,7 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     private void LoadPersistentState()
     {
         if (string.IsNullOrEmpty(saveKey)) return;
+
         if (saveStore.TryGetBool(saveKey, out var val))
         {
             permanentlyUnlocked = val;
@@ -350,21 +374,30 @@ public class DoorInteractable : MonoBehaviour, IInteractable
         permanentlyUnlocked = value;
         if (lockComponent && value) lockComponent.ForceUnlock();
         if (alsoSwitchModeToUnlocked) mode = DoorAccessMode.Unlocked;
-
-        if (!string.IsNullOrEmpty(saveKey))
-            saveStore.SetBool(saveKey, permanentlyUnlocked);
+        if (!string.IsNullOrEmpty(saveKey)) saveStore.SetBool(saveKey, permanentlyUnlocked);
     }
 
-    private string SafeBindingDisplay()
+    private string KeyboardBindingDisplay()
     {
-        try { return controls.Player.Interact.GetBindingDisplayString(); }
-        catch { return "Interact"; }
+        try
+        {
+            var options = InputBinding.DisplayStringOptions.DontIncludeInteractions;
+
+            var mask = InputBinding.MaskByGroup("Keyboard&Mouse"); // имя схемы ввода из твоего Input Actions
+            var s = controls.Player.Interact.GetBindingDisplayString(options: options, bindingMask: mask);
+
+            return string.IsNullOrWhiteSpace(s) ? "E" : s.Trim();
+        }
+        catch
+        {
+            return "E";
+        }
     }
 
     // IInteractable
     public bool CanInteract(object actor) => playerInside && !minigameActive;
     public void Interact(object actor) => OnInteract(default);
-    public string GetPrompt(object actor) => promptText ? promptText.text : string.Empty;
+    public string GetPrompt(object actor) => (promptText && promptText.enabled) ? promptText.text : string.Empty;
 
 #if UNITY_EDITOR
     void OnDrawGizmosSelected()
@@ -379,7 +412,6 @@ public class DoorInteractable : MonoBehaviour, IInteractable
     {
         audioSource = GetComponent<AudioSource>();
         if (!audioSource) audioSource = gameObject.AddComponent<AudioSource>();
-
         audioSource.playOnAwake = false;
         audioSource.loop = false;
         audioSource.spatialBlend = twoDSound ? 0f : 1f;
