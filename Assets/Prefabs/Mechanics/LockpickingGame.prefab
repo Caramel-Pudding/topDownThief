@@ -238,7 +238,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6963080798287476964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +278,13 @@ MonoBehaviour:
   successClip: {fileID: 8300000, guid: 959859b1f8f6e684fa36062309dd431b, type: 3}
   failClip: {fileID: 8300000, guid: aff55e197cb6e444a9bd94f8fbba1b12, type: 3}
   volume: 1
+  failNoiseRadius: 6
+  failExpandSpeed: 22
+  failLifeAfterReach: 0.15
+  failObstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
+  failRingMaterial: {fileID: 0}
 --- !u!82 &6686736221956247541
 AudioSource:
   m_ObjectHideFlags: 0

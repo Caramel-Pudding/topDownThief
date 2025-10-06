@@ -2,26 +2,22 @@
 using UnityEngine;
 using System;
 
-[RequireComponent(typeof(DoorLockingSystem))]
-public class DoorMinigameInitiator : MonoBehaviour
+public class LockpickingInitiator : MonoBehaviour
 {
     [Header("Minigame UI")]
     [SerializeField] private LockpickingUI lockpickingPrefab;
     [SerializeField] private Transform uiAnchor;
 
     [Header("On Fail Noise")]
-    [SerializeField] private float failNoiseRadius = 30f;
+    [SerializeField] private float failNoiseRadius = 10f;
+    [SerializeField] private float failExpandSpeed = 22f;
+    [SerializeField] private float failLifeAfterReach = 0.15f;
+    [SerializeField] private LayerMask failObstacleMask;
 
-    private DoorLockingSystem lockingSystem;
+    private LockpickingUI activeMinigame;
+    public bool IsMinigameActive => activeMinigame != null;
 
-    public bool IsMinigameActive { get; private set; }
-
-    void Awake()
-    {
-        lockingSystem = GetComponent<DoorLockingSystem>();
-    }
-
-    public void StartLockpicking(Action<bool> onComplete)
+    public void StartLockpicking(LockDifficulty difficulty, Action<bool> onComplete)
     {
         if (!lockpickingPrefab)
         {
@@ -32,26 +28,26 @@ public class DoorMinigameInitiator : MonoBehaviour
 
         if (IsMinigameActive) return;
 
-        IsMinigameActive = true;
-
-        var ui = Instantiate(lockpickingPrefab);
+        activeMinigame = Instantiate(lockpickingPrefab);
         var follow = uiAnchor ? uiAnchor : transform;
-        var difficulty = lockingSystem.LockComponent ? lockingSystem.LockComponent.Difficulty : LockDifficulty.Medium;
 
-        ui.Begin(difficulty, follow, success =>
+        activeMinigame.Begin(difficulty, follow, success =>
         {
-            if (success)
-            {
-                lockingSystem.SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
-            }
-            else
+            if (!success)
             {
                 EmitFailNoise();
             }
-
-            IsMinigameActive = false;
+            activeMinigame = null;
             onComplete?.Invoke(success);
         });
+    }
+
+    public void CancelLockpicking()
+    {
+        if (!IsMinigameActive) return;
+        
+        activeMinigame.Cancel();
+        activeMinigame = null;
     }
 
     private void EmitFailNoise()
@@ -59,9 +55,9 @@ public class DoorMinigameInitiator : MonoBehaviour
         NoiseSystem.Emit(
             (Vector2)transform.position,
             failNoiseRadius,
-            18f,
-            0.12f,
-            LayerMask.GetMask("Obstacles")
+            failExpandSpeed,
+            failLifeAfterReach,
+            failObstacleMask
         );
     }
 

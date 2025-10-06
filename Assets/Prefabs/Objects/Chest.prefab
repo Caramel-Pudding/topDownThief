@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3387476065477365308}
   - component: {fileID: 7825712398066335544}
   - component: {fileID: 1992492360801517461}
+  - component: {fileID: 9112302747763756089}
   m_Layer: 3
   m_Name: Chest
   m_TagString: Untagged
@@ -212,12 +213,10 @@ MonoBehaviour:
   lootConfig: {fileID: 11400000, guid: bc36fccc653523b4bb1b2b7d3ca270b3, type: 2}
   autoLootOnOpen: 1
   promptText: {fileID: 0}
-  uiAnchor: {fileID: 7853057273140705432}
-  lockpickingPrefab: {fileID: 8973223098770324289, guid: c346633379cf1e6468e1230da9540963, type: 3}
   playerTag: Player
   allowClose: 0
   interactDebounce: 0.1
-  failNoiseRadius: 20
+  lockpickingInitiator: {fileID: 9112302747763756089}
   saveKeyOpened: 
   saveKeyLooted: 
 --- !u!114 &1992492360801517461
@@ -234,6 +233,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 1
   difficulty: 1
+--- !u!114 &9112302747763756089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614140167096971019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b2d17ab8cd0564e8a5d9d077124f10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockpickingPrefab: {fileID: 8973223098770324289, guid: c346633379cf1e6468e1230da9540963, type: 3}
+  uiAnchor: {fileID: 7853057273140705432}
+  failNoiseRadius: 10
+  failExpandSpeed: 22
+  failLifeAfterReach: 0.15
+  failObstacleMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &8785634182704741877
 GameObject:
   m_ObjectHideFlags: 0

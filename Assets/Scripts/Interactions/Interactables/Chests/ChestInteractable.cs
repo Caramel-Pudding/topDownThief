@@ -26,16 +26,14 @@ public class ChestInteractable : MonoBehaviour, IInteractable
 
     [Header("UI")]
     [SerializeField] private TMP_Text promptText;
-    [SerializeField] private Transform uiAnchor;           // for lockpicking UI
-    [SerializeField] private LockpickingUI lockpickingPrefab;
 
     [Header("Interaction")]
     [SerializeField] private string playerTag = "Player";
     [SerializeField] private bool allowClose = false;
     [SerializeField] private float interactDebounce = 0.1f;
 
-    [Header("On Fail Noise")]
-    [SerializeField] private float failNoiseRadius = 20f;
+    [Header("Dependencies")]
+    [SerializeField] private LockpickingInitiator lockpickingInitiator;
 
     [Header("Persistence")]
     [SerializeField] private string saveKeyOpened = ""; // e.g. "chest_A1_opened"
@@ -43,7 +41,7 @@ public class ChestInteractable : MonoBehaviour, IInteractable
 
     private InputSystem_Actions controls;
     private bool playerInside;
-    private bool minigameActive;
+    private bool IsMinigameActive => lockpickingInitiator != null && lockpickingInitiator.IsMinigameActive;
     private float lastInteractTime;
     private bool permanentlyUnlocked; // behaves like for doors
 
@@ -64,12 +62,14 @@ public class ChestInteractable : MonoBehaviour, IInteractable
     {
         if (!chest) TryGetComponent(out chest);
         if (!lockComponent) TryGetComponent(out lockComponent);
+        if (!lockpickingInitiator) TryGetComponent(out lockpickingInitiator);
     }
 
     void Awake()
     {
         if (!chest) chest = GetComponent<ChestController>();
         if (!lockComponent) lockComponent = GetComponent<LockComponent>();
+        if (!lockpickingInitiator) lockpickingInitiator = GetComponent<LockpickingInitiator>();
 
         controls = new InputSystem_Actions();
         controls.Player.Interact.performed += OnInteract;
@@ -110,11 +110,16 @@ public class ChestInteractable : MonoBehaviour, IInteractable
         playerInside = false;
         try { controls.Player.Disable(); } catch {}
         SetPromptVisible(false);
+
+        if (IsMinigameActive)
+        {
+            lockpickingInitiator.CancelLockpicking();
+        }
     }
 
     private void OnInteract(InputAction.CallbackContext _)
     {
-        if (!playerInside || minigameActive) return;
+        if (!playerInside || IsMinigameActive) return;
         if (Time.unscaledTime - lastInteractTime < interactDebounce) return;
         lastInteractTime = Time.unscaledTime;
 
@@ -202,22 +207,18 @@ public class ChestInteractable : MonoBehaviour, IInteractable
 
     private void StartLockpicking()
     {
-        if (!lockpickingPrefab)
+        if (lockpickingInitiator == null)
         {
-            Debug.LogWarning("Lockpicking prefab missing.");
+            Debug.LogWarning("Lockpicking initiator missing.");
             return;
         }
 
-        minigameActive = true;
         SetPromptVisible(false);
 
-        var ui = Instantiate(lockpickingPrefab);
-        var follow = uiAnchor ? uiAnchor : transform;
         var diff = lockComponent ? lockComponent.Difficulty : LockDifficulty.Medium;
 
-        ui.Begin(diff, follow, success =>
+        lockpickingInitiator.StartLockpicking(diff, success =>
         {
-            minigameActive = false;
             if (success)
             {
                 lockComponent?.ForceUnlock();
@@ -226,11 +227,6 @@ public class ChestInteractable : MonoBehaviour, IInteractable
             }
             else
             {
-                NoiseSystem.Emit((Vector2)transform.position,
-                 failNoiseRadius,
-                 18f,                 // expandSpeed
-                 0.12f,               // lifeAfterReach
-                 LayerMask.GetMask("Obstacles")); // или у тебя есть поле/константа с маской
                 UpdatePrompt();
             }
         });
@@ -310,7 +306,7 @@ public class ChestInteractable : MonoBehaviour, IInteractable
 
             case AccessMode.Pickable:
                 promptText.text = $"Press {keyName} to pick lock";
-                SetPromptVisible(!minigameActive);
+                SetPromptVisible(!IsMinigameActive);
                 break;
 
             case AccessMode.KeyRequired:
@@ -324,7 +320,7 @@ public class ChestInteractable : MonoBehaviour, IInteractable
                 else if (allowPickIfNoKey && lockComponent != null)
                 {
                     promptText.text = $"Press {keyName} to pick lock (missing {keyLabel})";
-                    SetPromptVisible(!minigameActive);
+                    SetPromptVisible(!IsMinigameActive);
                 }
                 else
                 {
@@ -398,15 +394,9 @@ public class ChestInteractable : MonoBehaviour, IInteractable
     }
 
     // IInteractable
-    public bool CanInteract(object actor) => playerInside && !minigameActive;
+    public bool CanInteract(object actor) => playerInside && !IsMinigameActive;
     public void Interact(object actor) => OnInteract(default);
     public string GetPrompt(object actor) => promptText ? promptText.text : string.Empty;
 
-#if UNITY_EDITOR
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, failNoiseRadius);
-    }
-#endif
+
 }

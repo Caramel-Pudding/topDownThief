@@ -36,6 +36,18 @@ This document provides essential context for the Gemini AI assistant regarding t
 -   `ProjectSettings/`: Stores all project-wide configuration.
     -   `ProjectVersion.txt`: Defines the Unity editor version.
 
+## Architectural Principles & Conventions
+
+- **Component-Based Design**: The project heavily utilizes a component-based architecture. Core functionalities are encapsulated in `MonoBehaviour` scripts attached to GameObjects.
+- **Separation of Concerns**: Functionality is often split across multiple, focused components. For example, the `Door` is composed of `DoorController`, `DoorLockingSystem`, `DoorAudio`, and `DoorInteractionHandler`. When adding new features, prefer creating a new component rather than adding unrelated logic to an existing one.
+- **Interaction System**:
+    -   Player interactions with objects are managed through the `IInteractable` interface.
+    -   Objects that can be interacted with should have a component that implements this interface.
+    -   UI prompts are typically handled by a separate `PromptController` component.
+- **Code Duplication**: Strive to keep the code DRY (Don't Repeat Yourself). If you find similar logic in multiple places (e.g., starting a lockpicking minigame for both chests and doors), refactor it into a reusable component. The `LockpickingInitiator` is a good example of this pattern.
+- **Dependencies**: Use `[SerializeField]` for references to other components on the same or different GameObjects. Use `GetComponent` in `Awake()` or `OnValidate()` as a fallback to ensure required components are present. For newly created components, consider adding a `RequireComponent` attribute if it depends on another component on the same GameObject.
+- **Input Handling**: Player input is managed via the `InputSystem_Actions.inputactions` file and the generated C# class. Input events are subscribed to in `OnEnable` and unsubscribed from in `OnDisable` or `OnDestroy`.
+
 ## Build & Test Instructions
 
 -   **Primary Testing**: All testing is currently done by running the `TutorialScene` within the Unity Editor.

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(DoorController), typeof(DoorLockingSystem), typeof(DoorAudio))]
-[RequireComponent(typeof(DoorPromptController), typeof(DoorMinigameInitiator))]
+[RequireComponent(typeof(DoorPromptController))]
 public class DoorInteractionHandler : MonoBehaviour, IInteractable
 {
     [Header("Interaction")][SerializeField] private string playerTag = "Player";
@@ -16,7 +16,7 @@ public class DoorInteractionHandler : MonoBehaviour, IInteractable
     private DoorLockingSystem lockingSystem;
     private DoorAudio doorAudio;
     private DoorPromptController promptController;
-    private DoorMinigameInitiator minigameInitiator;
+    private LockpickingInitiator lockpickingInitiator;
 
     private InputSystem_Actions controls;
     private bool playerInside;
@@ -29,7 +29,7 @@ public class DoorInteractionHandler : MonoBehaviour, IInteractable
         lockingSystem = GetComponent<DoorLockingSystem>();
         doorAudio = GetComponent<DoorAudio>();
         promptController = GetComponent<DoorPromptController>();
-        minigameInitiator = GetComponent<DoorMinigameInitiator>();
+        lockpickingInitiator = GetComponent<LockpickingInitiator>();
 
         // Setup input
         controls = new InputSystem_Actions();
@@ -71,6 +71,11 @@ public class DoorInteractionHandler : MonoBehaviour, IInteractable
         playerInside = false;
         controls.Player.Disable();
         promptController.Clear();
+
+        if (lockpickingInitiator != null && lockpickingInitiator.IsMinigameActive)
+        {
+            lockpickingInitiator.CancelLockpicking();
+        }
     }
 
     private void OnInteract(InputAction.CallbackContext _)
@@ -115,16 +120,30 @@ public class DoorInteractionHandler : MonoBehaviour, IInteractable
 
     private void HandlePickable()
     {
-        minigameInitiator.StartLockpicking(success =>
+        if (lockpickingInitiator == null)
         {
-            if (success) doorController.Open();
-            else doorAudio.PlayLockedSound();
+            Debug.LogWarning("Lockpicking initiator missing.");
+            return;
+        }
+
+        promptController.Clear();
+
+        var diff = lockingSystem.LockComponent ? lockingSystem.LockComponent.Difficulty : LockDifficulty.Medium;
+
+        lockpickingInitiator.StartLockpicking(diff, success =>
+        {
+            if (success) 
+            {
+                lockingSystem.SetPermanentlyUnlocked(true, alsoSwitchModeToUnlocked: true);
+                doorController.Open();
+            }
+            else 
+            {
+                doorAudio.PlayLockedSound();
+            }
 
             if (playerInside) promptController.UpdatePrompt(doorController, lockingSystem, allowClose);
         });
-
-        // Hide prompt during minigame
-        promptController.Clear();
     }
 
     private void HandleKeyRequired()
@@ -149,6 +168,6 @@ public class DoorInteractionHandler : MonoBehaviour, IInteractable
     }
 
     // IInteractable Implementation
-    public bool CanInteract(object actor) => playerInside && !minigameInitiator.IsMinigameActive;
+    public bool CanInteract(object actor) => playerInside && (lockpickingInitiator == null || !lockpickingInitiator.IsMinigameActive);
     public string GetPrompt(object actor) => promptController.isActiveAndEnabled ? promptController.GetPrompt(actor) : string.Empty; // Simplified, actual text is on controller
 }

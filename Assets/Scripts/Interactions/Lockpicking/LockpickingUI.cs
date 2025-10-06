@@ -103,6 +103,23 @@ public class LockpickingUI : MonoBehaviour
         }
     }
 
+    public void Cancel()
+    {
+        // This is a silent exit, no onComplete call
+
+        // Stop input and hide visuals immediately
+        if (controls != null)
+        {
+            controls.Player.Interact.performed -= OnPress;
+            controls.Player.Disable();
+        }
+
+        if (canvas) canvas.enabled = false;
+
+        // Destroy after the clip finishes so the sound is not cut off
+        Destroy(gameObject);
+    }
+
     private void Complete(bool success)
     {
         // Fire callback first (game logic), then handle audio/cleanup.
