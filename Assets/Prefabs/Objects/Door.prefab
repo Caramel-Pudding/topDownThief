@@ -45,9 +45,13 @@ GameObject:
   - component: {fileID: 5765180461480333062}
   - component: {fileID: 1639489767558590887}
   - component: {fileID: -4250174512536940097}
-  - component: {fileID: 7128438398005496022}
-  - component: {fileID: 5585604301733918404}
-  - component: {fileID: 5529303563977351410}
+  - component: {fileID: 5393210205167285386}
+  - component: {fileID: 6174408793303477597}
+  - component: {fileID: 608045095315580394}
+  - component: {fileID: 4859832089493374655}
+  - component: {fileID: 8906909883749126837}
+  - component: {fileID: 8992077166374145618}
+  - component: {fileID: 5190039737731811307}
   m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
@@ -298,7 +302,7 @@ MonoBehaviour:
     - rid: 6325891243727651074
       type: {class: ShadowShape2DProvider_SpriteRenderer, ns: UnityEngine.Rendering.Universal, asm: Unity.RenderPipelines.Universal.2D.Runtime}
       data: 
---- !u!114 &7128438398005496022
+--- !u!114 &5393210205167285386
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,7 +315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solidCollider: {fileID: 5765180461480333062}
-  triggerCollider: {fileID: 5765180461480333062}
+  triggerCollider: {fileID: 1639489767558590887}
   spriteRenderer: {fileID: 1843281603761645731}
   shadowCaster: {fileID: -4250174512536940097}
   autoCloseSeconds: 0
@@ -323,7 +327,7 @@ MonoBehaviour:
   OnClosed:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5585604301733918404
+--- !u!114 &6174408793303477597
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -332,41 +336,172 @@ MonoBehaviour:
   m_GameObject: {fileID: 5899710082939874399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 057b4a01334a08f4c8e47609a7772172, type: 3}
+  m_Script: {fileID: 11500000, guid: d4e4d35e0f3802846b069f3fcc9ccb07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locked: 1
-  difficulty: 1
---- !u!114 &5529303563977351410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5899710082939874399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 661e8bbcead9c2e43947ba0288d3264a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  door: {fileID: 7128438398005496022}
-  lockComponent: {fileID: 5585604301733918404}
   mode: 2
+  permanentlyUnlocked: 0
   requiredKeyId: key.hallway
   keyDisplayName: Hallway Key
   consumeKey: 1
   allowPickIfNoKey: 0
-  promptText: {fileID: 0}
-  uiAnchor: {fileID: 3802106195170464106}
-  lockpickingPrefab: {fileID: 8973223098770324289, guid: c346633379cf1e6468e1230da9540963, type: 3}
-  playerTag: Player
-  allowClose: 1
-  interactDebounce: 0.1
-  failNoiseRadius: 30
+  lockComponent: {fileID: 0}
   saveKey: 
-  openClip: {fileID: 8300000, guid: 1774cb0accc0f0144923d6203239dc99, type: 3}
+--- !u!82 &608045095315580394
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &4859832089493374655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12a211a0100f54640a35dfc493ddbdde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  openClip: {fileID: 8300000, guid: 89b60a671abe85841a72668538856986, type: 3}
   closeClip: {fileID: 8300000, guid: 850e20e7893c01747922864e2a9cf1bb, type: 3}
-  lockedClip: {fileID: 8300000, guid: a87b12e88f91cd440999979abcae2d5a, type: 3}
+  lockedClip: {fileID: 8300000, guid: 66c41fbf9ad06a247a201a9faa5c6fb3, type: 3}
   sfxVolume: 1
   outputGroup: {fileID: 0}
   twoDSound: 1
+--- !u!114 &8906909883749126837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6c37556c531c74499673f0278709591, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  promptText: {fileID: 0}
+--- !u!114 &8992077166374145618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a5a892ec5267f4c83ce27c1b09ab69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lockpickingPrefab: {fileID: 0}
+  uiAnchor: {fileID: 3802106195170464106}
+  failNoiseRadius: 30
+--- !u!114 &5190039737731811307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899710082939874399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1d2f2bdd7e9fb04eb4042e5e56b665d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTag: Player
+  allowClose: 1
+  interactDebounce: 0.1
