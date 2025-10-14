@@ -36,17 +36,37 @@ public class DoorController : MonoBehaviour
     {
         if (!spriteRenderer) TryGetComponent(out spriteRenderer);
         if (!shadowCaster) TryGetComponent(out shadowCaster);
+        EnsureCollidersAreAssigned();
+    }
+
+    private void EnsureCollidersAreAssigned()
+    {
+        if (solidCollider && triggerCollider) return;
+
+        var allColliders = GetComponents<Collider2D>();
 
         if (!solidCollider)
         {
-            foreach (var c in GetComponents<Collider2D>())
-                if (!c.isTrigger) { solidCollider = c; break; }
+            foreach (var c in allColliders)
+            {
+                if (!c.isTrigger)
+                {
+                    solidCollider = c;
+                    break;
+                }
+            }
         }
 
         if (!triggerCollider)
         {
-            foreach (var c in GetComponents<Collider2D>())
-                if (c.isTrigger) { triggerCollider = c; break; }
+            foreach (var c in allColliders)
+            {
+                if (c.isTrigger)
+                {
+                    triggerCollider = c;
+                    break;
+                }
+            }
         }
     }
 
@@ -66,7 +86,18 @@ public class DoorController : MonoBehaviour
         if (openLayer < 0)
             Debug.LogError($"[DoorController] Layer '{openLayerName}' not found. Check Project Settings > Tags and Layers.");
 
-        if (!solidCollider) OnValidate();
+        EnsureCollidersAreAssigned();
+
+        // Fallback for solid collider
+        if (!solidCollider)
+        {
+            var colliders = GetComponents<Collider2D>();
+            if (colliders.Length > 0)
+            {
+                solidCollider = colliders[0];
+                Debug.LogWarning($"[DoorController] No non-trigger collider found for '{gameObject.name}'. Using first available collider. It will be forced solid when closed.", this);
+            }
+        }
 
         // Apply initial visual/physics state without invoking events
         ApplyState(opened, invokeEvents: false);
@@ -103,7 +134,14 @@ public class DoorController : MonoBehaviour
     {
         if (spriteRenderer) spriteRenderer.enabled = isOpen ? false : initialRendererEnabled;
         if (shadowCaster) shadowCaster.enabled = !isOpen;
-        if (solidCollider) solidCollider.enabled = !isOpen;
+        if (solidCollider)
+        {
+            solidCollider.enabled = !isOpen;
+            if (!isOpen)
+            {
+                solidCollider.isTrigger = false;
+            }
+        }
 
         gameObject.layer = isOpen
             ? LayerMask.NameToLayer(openLayerName)
