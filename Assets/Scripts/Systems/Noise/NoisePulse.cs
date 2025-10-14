@@ -24,6 +24,7 @@ public class NoisePulse : MonoBehaviour
     private Vector2 origin;
     private readonly Collider2D[] buf = new Collider2D[64];
     private readonly HashSet<Component> notified = new HashSet<Component>();
+    private ContactFilter2D contactFilter;
 
     public void Init(Config c)
     {
@@ -45,6 +46,9 @@ public class NoisePulse : MonoBehaviour
         }
 
         lifeTimer = cfg.LifeAfterReach;
+
+        contactFilter = new ContactFilter2D();
+        contactFilter.useLayerMask = false;
     }
 
     void Update()
@@ -109,7 +113,7 @@ public class NoisePulse : MonoBehaviour
 
     private void NotifyListeners()
     {
-        int count = Physics2D.OverlapCircleNonAlloc(origin, radius, buf);
+        int count = Physics2D.OverlapCircle(origin, radius, contactFilter, buf);
         var ev = new NoiseEvent
         {
             Origin = origin,

@@ -197,11 +197,11 @@ public class Loot : MonoBehaviour
         }
 
         string keyName;
-        try { keyName = controls.Player.Interact.GetBindingDisplayString(); }
+        try { keyName = controls.Player.Interact.GetBindingDisplayString(0); }
         catch { keyName = "Interact"; }
 
         var label = !string.IsNullOrEmpty(displayName) ? displayName : itemId;
-        promptText.text = $"Press {keyName} to loot {label}";
+        promptText.text = $"{keyName} to loot {label}";
         promptText.enabled = true;
     }
 
