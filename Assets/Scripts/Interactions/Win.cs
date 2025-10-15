@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 
 [RequireComponent(typeof(Collider2D))]
-public class WinTileInteraction : MonoBehaviour
+public class Win : MonoBehaviour
 {
     private InputSystem_Actions controls;
 
@@ -31,9 +31,19 @@ public class WinTileInteraction : MonoBehaviour
     {
         controls = new InputSystem_Actions();
         controls.Player.Interact.performed += _ => isHolding = true;
-        controls.Player.Interact.canceled += _ => isHolding = false;
+        controls.Player.Interact.canceled += _ =>
+        {
+            isHolding = false;
+            holdTimer = 0f; // Reset timer on release
+        };
 
         if (promptText) promptText.enabled = false;
+
+        if (progressBar == null)
+        {
+            progressBar = GetComponentInChildren<Slider>();
+        }
+
         if (progressBar) progressBar.gameObject.SetActive(false);
         if (winMessage) winMessage.enabled = false;
     }
@@ -51,7 +61,10 @@ public class WinTileInteraction : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag(playerTag))
+        {
             playerInside = true;
+            UpdatePrompt(true);
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
@@ -59,9 +72,10 @@ public class WinTileInteraction : MonoBehaviour
         if (!other.CompareTag(playerTag)) return;
 
         playerInside = false;
+        isHolding = false;
         holdTimer = 0f;
 
-        if (promptText) promptText.enabled = false;
+        UpdatePrompt(false);
         if (progressBar) { progressBar.value = 0f; progressBar.gameObject.SetActive(false); }
     }
 
@@ -69,16 +83,9 @@ public class WinTileInteraction : MonoBehaviour
     {
         if (!playerInside || winTriggered) return;
 
-        string keyName = SafeBindingDisplay();
-        if (promptText)
-        {
-            promptText.text = $"Hold {keyName} to win...";
-            promptText.enabled = true;
-        }
-
         if (isHolding)
         {
-            holdTimer += Time.unscaledDeltaTime; // unaffected by Time.timeScale
+            holdTimer += Time.unscaledDeltaTime;
             if (progressBar)
             {
                 progressBar.gameObject.SetActive(true);
@@ -90,8 +97,12 @@ public class WinTileInteraction : MonoBehaviour
         }
         else
         {
-            holdTimer = 0f;
-            if (progressBar) progressBar.value = 0f;
+            // When not holding, ensure the progress bar is hidden.
+            if (progressBar && progressBar.gameObject.activeSelf)
+            {
+                progressBar.value = 0f;
+                progressBar.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -120,9 +131,28 @@ public class WinTileInteraction : MonoBehaviour
         return InventoryManager.Instance.GetItemCount(goldItemId);
     }
 
-    private string SafeBindingDisplay()
+    private void UpdatePrompt(bool show)
     {
-        try { return controls.Player.Interact.GetBindingDisplayString(); }
-        catch { return "Interact"; }
+        if (!promptText) return;
+
+        if (show)
+        {
+            string keyName = "E"; // Default
+            try
+            {
+                keyName = controls.Player.Interact.GetBindingDisplayString(0);
+                // Sanitize the binding string, e.g., "Press E" -> "E"
+                if (keyName.StartsWith("Press "))
+                {
+                    keyName = keyName.Substring("Press ".Length);
+                }
+            }
+            catch
+            {
+                // Keep default
+            }
+            promptText.text = $"Hold {keyName} to win...";
+        }
+        promptText.enabled = show;
     }
 }
